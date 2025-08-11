@@ -3,7 +3,3 @@ node_modules/
 public/
 bin/
 vendor/
-organizations/
-channel-artifacts/
-*.tar.gz
-log.txt
