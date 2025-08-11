@@ -2,3 +2,7 @@ node_modules/
 .vscode/
 public/
 bin/
+organizations/
+channel-artifacts/
+*.tar.gz
+log.txt
