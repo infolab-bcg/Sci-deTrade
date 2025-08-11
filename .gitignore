@@ -2,6 +2,7 @@ node_modules/
 .vscode/
 public/
 bin/
+vendor/
 organizations/
 channel-artifacts/
 *.tar.gz
