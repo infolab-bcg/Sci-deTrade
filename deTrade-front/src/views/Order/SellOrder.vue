@@ -45,7 +45,7 @@ const n = ref('');
 // 获取订单信息
 const fetchOrder = async () => {
   try {
-    const response = await axios.get('/getorder',{params: { id: route.params.id },});
+    response = await axios.get('/getorder',{params: { id: route.params.id },});
     order.value = response.data.order;
     response = await axios.get('/getdataset',{ params: { id: order.value.DatasetID } });
     dataset.value = response.data.dataset;
