@@ -62,16 +62,10 @@ export default {
       </div>
     </div>
     <div class="container mt-sm-5 mt-3">
-      <div
-        v-for="({ heading, description, items }, index) in data"
-        :class="`row ${index !== 0 ? 'pt-lg-6' : ''}`"
-        :key="heading"
-      >
+      <div v-for="({ heading, description, items }, index) in data" :class="`row ${index !== 0 ? 'pt-lg-6' : ''}`"
+        :key="heading">
         <div :class="`${col1}`">
-          <div
-            class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2"
-            style="top: 100px"
-          >
+          <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
             <h3>{{ heading }}</h3>
             <h6 class="text-secondary font-weight-normal pe-3">
               {{ description }}
@@ -80,20 +74,9 @@ export default {
         </div>
         <div :class="`${col2}`">
           <div :class="`row ${index !== 0 ? 'mt-3' : ''}`">
-            <div
-              class="col-md-4 mt-md-0"
-              v-for="{ image, title, subtitle, route, id, pro } in items"
-              :key="title"
-            >
-              <ExampleCard
-                class="min-height-160 shadow-lg mt-4"
-                :image="image"
-                :title="title"
-                :subtitle="subtitle"
-                :route="route"
-                :id = "id"
-                :pro="pro"
-              />
+            <div class="col-md-4 mt-md-0" v-for="{ image, title, subtitle, route, id, pro } in items" :key="title">
+              <ExampleCard class="min-height-160 shadow-lg mt-4" :image="image" :title="title" :subtitle="subtitle"
+                :route="route" :id="id" :pro="pro" />
             </div>
           </div>
         </div>

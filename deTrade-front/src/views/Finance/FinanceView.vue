@@ -1,4 +1,3 @@
-
 <template>
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
@@ -9,11 +8,7 @@
   </div>
 
   <Header>
-    <div
-      class="page-header min-height-300"
-      :style="`background-image: url(${image})`"
-      loading="lazy"
-    >
+    <div class="page-header min-height-300" :style="`background-image: url(${image})`" loading="lazy">
       <span class="mask bg-gradient-dark opacity-8"></span>
     </div>
   </Header>
@@ -24,7 +19,8 @@
         <div class="col-lg-5">
           <div class="card h-100 transparent-card">
             <div class="card-header p-3 pt-2">
-              <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+              <div
+                class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
                 <i class="material-icons opacity-10">account_balance_wallet</i>
               </div>
               <div class="text-end pt-1">
@@ -44,7 +40,8 @@
         <div class="col-lg-7">
           <div class="card mb-5 transparent-card">
             <div class="card-header p-3 pt-2">
-              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+              <div
+                class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
                 <i class="material-icons opacity-10">add_circle</i>
               </div>
               <div class="text-end pt-1">
@@ -60,7 +57,8 @@
           </div>
           <div class="card transparent-card">
             <div class="card-header p-3 pt-2">
-              <div class="icon icon-lg icon-shape bg-gradient-warning shadow-warning text-center border-radius-xl mt-n4 position-absolute">
+              <div
+                class="icon icon-lg icon-shape bg-gradient-warning shadow-warning text-center border-radius-xl mt-n4 position-absolute">
                 <i class="material-icons opacity-10">remove_circle</i>
               </div>
               <div class="text-end pt-1">
@@ -116,11 +114,11 @@ const fetchAccountInfo = async () => {
 
 const handleDeposit = async () => {
   try {
-    const uID = publicKey.value; 
-    const value = depositAmount.value; 
+    const uID = publicKey.value;
+    const value = depositAmount.value;
     await axios.post('/mint', { uID, value });
 
-    fetchAccountInfo(); 
+    fetchAccountInfo();
   } catch (error) {
     console.error('mint fail', error);
     this.errorMessage = 'Failed to deposit';
@@ -131,11 +129,11 @@ const handleDeposit = async () => {
 const handleWithdraw = async () => {
   try {
     const uID = publicKey.value;
-    const value = withdrawAmount.value; 
+    const value = withdrawAmount.value;
 
     await axios.post('/burn', { uID, value });
 
-    fetchAccountInfo(); 
+    fetchAccountInfo();
   } catch (error) {
     console.error('withdraw fail', error);
     this.errorMessage = 'Failed to deposit';

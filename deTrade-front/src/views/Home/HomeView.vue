@@ -26,29 +26,29 @@ const fetchData = async () => {
     heading: "数据集",
     description:
       "汇集各行业数据",
-      items: []
+    items: []
   }];
   try {
     const response = await axios.get('/getDatasets');
     const datasets = response.data.datasets;
     var items = [{
-          id: "1",
-          image: imgStat,
-          title: "金融数据",
-          subtitle: "10GB",
-          route: "CreateOrder",
-          pro: false
-        }];
+      id: "1",
+      image: imgStat,
+      title: "金融数据",
+      subtitle: "10GB",
+      route: "CreateOrder",
+      pro: false
+    }];
     for (const dataset of datasets) {
       var item = {
-          id: dataset.DatasetID,
-          image: imgStat,
-          title: dataset.Title,
-          subtitle: dataset.Description,
-          route: "CreateOrder",
-          pro: false
-        };
-        items.push(item);
+        id: dataset.DatasetID,
+        image: imgStat,
+        title: dataset.Title,
+        subtitle: dataset.Description,
+        route: "CreateOrder",
+        pro: false
+      };
+      items.push(item);
     }
     data.value[0].items = items;
   } catch (error) {
@@ -78,22 +78,15 @@ onUnmounted(() => {
     </div>
   </div>
   <Header>
-    <div
-      class="page-header min-vh-50"
-      :style="`background-image: url(${vueMkHeader})`"
-      loading="lazy"
-    >
+    <div class="page-header min-vh-50" :style="`background-image: url(${vueMkHeader})`" loading="lazy">
       <div class="container">
         <div class="row">
           <div class="col-lg-7 text-center mx-auto position-relative">
-            <h1
-              class="text-white pt-3 mt-n5 me-2"
-              :style="{ display: 'inline-block ' }"
-            >
-              数据交易平台
+            <h1 class="text-white pt-3 mt-n5 me-2" :style="{ display: 'inline-block ' }">
+              科研数据管理平台
             </h1>
             <p class="lead text-white px-5 mt-3" :style="{ fontWeight: '500' }">
-              借助区块链实现去中心化的可信数据交易。
+              基于区块链的科研数据存证、共享和交易平台
             </p>
           </div>
         </div>
@@ -103,7 +96,7 @@ onUnmounted(() => {
 
   <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
     <HomeInformation />
-    <HomeExample  v-if="data" :data="data"/>
+    <HomeExample v-if="data" :data="data" />
   </div>
 
 </template>

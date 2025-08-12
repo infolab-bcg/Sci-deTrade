@@ -44,9 +44,9 @@ const secretKey = ref('');
 // 获取订单信息
 const fetchOrder = async () => {
   try {
-    response = await axios.get('/getorder',{params: { id: route.params.id },});
+    response = await axios.get('/getorder', { params: { id: route.params.id }, });
     order.value = response.data.order;
-    response = await axios.get('/getdataset',{ params: { id: order.value.DatasetID } });
+    response = await axios.get('/getdataset', { params: { id: order.value.DatasetID } });
     dataset.value = response.data.dataset;
   } catch (error) {
     console.error("Error fetching order:", error);
@@ -106,11 +106,7 @@ onMounted(() => {
   </div>
 
   <Header>
-    <div
-      class="page-header min-height-200"
-      :style="`background-image: url(${image})`"
-      loading="lazy"
-    >
+    <div class="page-header min-height-200" :style="`background-image: url(${image})`" loading="lazy">
       <span class="mask bg-gradient-dark opacity-8"></span>
     </div>
   </Header>
@@ -122,18 +118,11 @@ onMounted(() => {
           <div class="col">
             <div class="card box-shadow-xl overflow-hidden mb-5">
               <div class="row">
-                <div
-                  class="col-lg-5 position-relative bg-cover px-0"
-                  :style="{ backgroundImage: `url(${bgContact})` }"
-                  loading="lazy"
-                >
-                  <div
-                    class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center"
-                  >
+                <div class="col-lg-5 position-relative bg-cover px-0" :style="{ backgroundImage: `url(${bgContact})` }"
+                  loading="lazy">
+                  <div class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center">
                     <div class="mask bg-gradient-dark opacity-8"></div>
-                    <div
-                      class="p-5 ps-sm-8 position-relative text-start my-auto z-index-2"
-                    >
+                    <div class="p-5 ps-sm-8 position-relative text-start my-auto z-index-2">
                       <h3 class="text-white">订单信息</h3>
                       <p class="text-white opacity-8 mb-4">
                         <span class="text-sm opacity-8">买家: {{ truncateText(order.Buyer, 20) }}</span><br>
@@ -156,41 +145,23 @@ onMounted(() => {
                         <div class="col-md-12 pe-2 mb-3">
                           <div class="input-group input-group-static mb-4">
                             <label>交易秘密口令</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="输入交易秘密口令"
-                              v-model="secretKey"
-                            />
+                            <input type="text" class="form-control" placeholder="输入交易秘密口令" v-model="secretKey" />
                           </div>
                         </div>
                         <div class="col-md-12 pe-2 mb-3">
                           <div class="input-group input-group-static mb-4">
                             <label>加密密钥</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="获取加密密钥"
-                              v-model="encryptionKey"
-                              readonly
-                            />
+                            <input type="text" class="form-control" placeholder="获取加密密钥" v-model="encryptionKey"
+                              readonly />
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-12 text-end ms-auto">
-                          <button
-                            type="button"
-                            class="btn btn-success mb-0 mx-2"
-                            @click="submitSecretKey"
-                          >
+                          <button type="button" class="btn btn-success mb-0 mx-2" @click="submitSecretKey">
                             提交支付密钥
                           </button>
-                          <button
-                            type="button"
-                            class="btn btn-danger mb-0 mx-2"
-                            @click="getEncryptionKey"
-                          >
+                          <button type="button" class="btn btn-danger mb-0 mx-2" @click="getEncryptionKey">
                             获取加密密钥
                           </button>
                         </div>

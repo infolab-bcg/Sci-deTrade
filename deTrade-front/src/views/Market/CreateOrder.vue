@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted,ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute } from 'vue-router';
 import axios from "@/api/axios";
 import NavbarDefault from "../../components/NavbarDefault.vue";
@@ -35,7 +35,7 @@ const paymentProof = ref('');
 // 获取数据集信息
 const fetchDataset = async () => {
   try {
-    const response = await axios.get('/getdataset',{ params: { id: route.params.id } });
+    const response = await axios.get('/getdataset', { params: { id: route.params.id } });
     dataset.value = response.data.dataset;
     // dataset.value.Owner = dataset.value.Owner[0,8];
     // dataset.value.Id = route.params.id;
@@ -58,12 +58,13 @@ const generatePaymentProof = () => {
 // 购买数据集
 const purchaseDataset = async () => {
   try {
-    const {buyer, datasetID, payHash} = {
+    const { buyer, datasetID, payHash } = {
       buyer: store.publicKey,
       datasetID: dataset.value.DatasetID,
       payHash: paymentProof.value
     };
-    await axios.post('/createOrder', { buyer, datasetID, payHash
+    await axios.post('/createOrder', {
+      buyer, datasetID, payHash
     });
     alert("Order created successfully!");
   } catch (error) {
@@ -113,11 +114,7 @@ onMounted(() => {
   </div>
 
   <Header>
-    <div
-      class="page-header min-height-200"
-      :style="`background-image: url(${image})`"
-      loading="lazy"
-    >
+    <div class="page-header min-height-200" :style="`background-image: url(${image})`" loading="lazy">
       <span class="mask bg-gradient-dark opacity-8"></span>
     </div>
   </Header>
@@ -129,18 +126,11 @@ onMounted(() => {
           <div class="col">
             <div class="card box-shadow-xl overflow-hidden mb-5">
               <div class="row">
-                <div
-                  class="col-lg-5 position-relative bg-cover px-0"
-                  :style="{ backgroundImage: `url(${bgContact})` }"
-                  loading="lazy"
-                >
-                  <div
-                    class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center"
-                  >
+                <div class="col-lg-5 position-relative bg-cover px-0" :style="{ backgroundImage: `url(${bgContact})` }"
+                  loading="lazy">
+                  <div class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center">
                     <div class="mask bg-gradient-dark opacity-8"></div>
-                    <div
-                      class="p-5 ps-sm-8 position-relative text-start my-auto z-index-2"
-                    >
+                    <div class="p-5 ps-sm-8 position-relative text-start my-auto z-index-2">
                       <h3 class="text-white">{{ dataset.Title }}</h3>
                       <p class="text-white opacity-8 mb-4">
                         {{ dataset.Description }}
@@ -152,12 +142,13 @@ onMounted(() => {
                       </div>
                       <div class="d-flex p-2 text-white">
                         <div class="ps-3">
-                          <span class="text-sm opacity-8">Hash: {{ truncateText(dataset.Hash,20) }}</span>
+                          <span class="text-sm opacity-8">Hash: {{ truncateText(dataset.Hash, 20) }}</span>
                         </div>
                       </div>
                       <div class="d-flex p-2 text-white">
                         <div class="ps-3">
-                          <span class="text-sm opacity-8">IpfsAddress: {{ truncateText(dataset.IpfsAddress, 20) }}</span>
+                          <span class="text-sm opacity-8">IpfsAddress: {{ truncateText(dataset.IpfsAddress, 20)
+                            }}</span>
                         </div>
                       </div>
                       <div class="d-flex p-2 text-white">
@@ -167,7 +158,7 @@ onMounted(() => {
                       </div>
                       <div class="d-flex p-2 text-white">
                         <div class="ps-3">
-                          <span class="text-sm opacity-8">Owner: {{ truncateText(dataset.Owner, 20)}}</span>
+                          <span class="text-sm opacity-8">Owner: {{ truncateText(dataset.Owner, 20) }}</span>
                         </div>
                       </div>
                       <div class="d-flex p-2 text-white">
@@ -194,47 +185,25 @@ onMounted(() => {
                         <div class="col-md-12 pe-2 mb-3">
                           <div class="input-group input-group-static mb-4">
                             <label>秘密口令</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="默认使用私钥"
-                              v-model="secretKey"
-                            />
+                            <input type="text" class="form-control" placeholder="默认使用私钥" v-model="secretKey" />
                           </div>
                         </div>
                         <div class="col-md-12 pe-2 mb-3">
                           <div class="input-group input-group-static mb-4">
                             <label>支付凭据</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="可自行生成"
-                              v-model="paymentProof"
-                            />
+                            <input type="text" class="form-control" placeholder="可自行生成" v-model="paymentProof" />
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-12 text-end ms-auto">
-                          <button
-                            type="button"
-                            class="btn btn-success mb-0 mx-2"
-                            @click="generatePaymentProof"
-                          >
+                          <button type="button" class="btn btn-success mb-0 mx-2" @click="generatePaymentProof">
                             生成支付凭据
                           </button>
-                          <button
-                            type="button"
-                            class="btn btn-success mb-0 mx-2"
-                            @click="purchaseDataset"
-                          >
+                          <button type="button" class="btn btn-success mb-0 mx-2" @click="purchaseDataset">
                             购买数据集
                           </button>
-                          <button
-                            type="button"
-                            class="btn btn-success mb-0 mx-2"
-                            @click="downloadDataset"
-                          >
+                          <button type="button" class="btn btn-success mb-0 mx-2" @click="downloadDataset">
                             下载数据集
                           </button>
 

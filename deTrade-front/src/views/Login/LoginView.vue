@@ -7,14 +7,10 @@
     </div>
   </div>
   <Header>
-    <div
-      class="page-header align-items-start min-vh-100"
-      :style="{
-        backgroundImage:
-          'url(https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80)'
-      }"
-      loading="lazy"
-    >
+    <div class="page-header align-items-start min-vh-100" :style="{
+      backgroundImage:
+        'url(https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80)'
+    }" loading="lazy">
       <span class="mask bg-gradient-dark opacity-6"></span>
       <div class="container my-auto">
         <div class="row">
@@ -34,55 +30,29 @@
                 <form @submit.prevent="handleLogin" class="text-start">
                   <div class="input-group input-group-outline my-3">
                     <label for="publicKey" class="form-label"></label>
-                    <input
-                      id="publicKey"
-                      type="text"
-                      class="form-control"
-                      v-model="publicKey"
-                      placeholder="输入您的公钥"
-                      required
-                    />
+                    <input id="publicKey" type="text" class="form-control" v-model="publicKey" placeholder="输入您的公钥"
+                      required />
                   </div>
                   <div class="input-group input-group-outline mb-3">
                     <label for="privateKey" class="form-label"></label>
-                    <input
-                      id="privateKey"
-                      :type="showPrivateKey ? 'text' : 'password'"
-                      class="form-control"
-                      v-model="privateKey"
-                      placeholder="输入您的私钥"
-                      required
-                    />
+                    <input id="privateKey" :type="showPrivateKey ? 'text' : 'password'" class="form-control"
+                      v-model="privateKey" placeholder="输入您的私钥" required />
                   </div>
                   <div class="form-check form-switch mb-3">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="showPrivateKeySwitch"
-                      v-model="showPrivateKey"
-                    />
+                    <input class="form-check-input" type="checkbox" id="showPrivateKeySwitch"
+                      v-model="showPrivateKey" />
                     <label class="form-check-label" for="showPrivateKeySwitch">显示私钥</label>
                   </div>
                   <div class="input-group input-group-outline mb-3">
                     <label for="mnemonic" class="form-label"></label>
-                    <input
-                      id="mnemonic"
-                      :type="showMnemonic ? 'text' : 'password'"
-                      class="form-control"
-                      v-model="mnemonic"
-                      placeholder="输入助记词以生成公私钥"
-                    />
+                    <input id="mnemonic" :type="showMnemonic ? 'text' : 'password'" class="form-control"
+                      v-model="mnemonic" placeholder="输入助记词以生成公私钥" />
                   </div>
                   <div class="form-check form-switch mb-3">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="showMnemonicSwitch"
-                      v-model="showMnemonic"
-                    />
+                    <input class="form-check-input" type="checkbox" id="showMnemonicSwitch" v-model="showMnemonic" />
                     <label class="form-check-label" for="showMnemonicSwitch">显示助记词</label>
                   </div>
-    
+
                   <div class="text-center">
                     <button type="submit" class="btn btn-success btn-lg w-100 my-4 mb-2">登录</button>
                   </div>
@@ -125,7 +95,7 @@ const generateKeys = () => {
     const hash = CryptoJS.SHA256(mnemonic.value).toString();
     keyPair = ec.keyFromPrivate(hash);
   } else {
-      // 生成一个随机字符串
+    // 生成一个随机字符串
     const randomString = CryptoJS.lib.WordArray.random(6).toString();
     mnemonic.value = randomString
     const hash = CryptoJS.SHA256(randomString).toString();
@@ -136,7 +106,7 @@ const generateKeys = () => {
   privateKey.value = keyPair.getPrivate('hex');
 };
 
-const handleLogin =  () => {
+const handleLogin = () => {
   authStore.login(publicKey.value, privateKey.value);
   router.push({ name: 'home' });
 };
@@ -196,8 +166,8 @@ const handleLogin =  () => {
   color: #6c757d;
 }
 
-.input-group-outline .form-control:focus ~ .form-label,
-.input-group-outline .form-control:not(:placeholder-shown) ~ .form-label {
+.input-group-outline .form-control:focus~.form-label,
+.input-group-outline .form-control:not(:placeholder-shown)~.form-label {
   top: -1.25rem;
   left: 0.75rem;
   font-size: 0.75rem;
