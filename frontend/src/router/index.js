@@ -49,6 +49,12 @@ const router = createRouter({
       component: SellOrder,
       meta: { requiresAuth: true },
     },
+    // {
+    //   path: '/maskingTrade/:id',
+    //   name: 'MaskingTrade',
+    //   component: MaskingTrade,
+    //   meta: { requiresAuth: true },
+    // },
 
     {
       path: "/buy",

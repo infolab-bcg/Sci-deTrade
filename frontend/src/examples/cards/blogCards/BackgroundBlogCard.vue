@@ -43,7 +43,7 @@ defineProps({
           class="text-sm icon-move-right"
           :class="`text-${action.color}`"
           >{{ action.label }}
-          <i class="fas fa-arrow-right text-xs ms-1"></i>
+          <i class="bi bi-arrow-right text-xs ms-1"></i>
         </a>
       </div>
     </div>

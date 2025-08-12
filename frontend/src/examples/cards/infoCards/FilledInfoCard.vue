@@ -73,7 +73,7 @@ defineProps({
         :class="`text-${action.label.color ?? 'success'}`"
       >
         {{ action.label.text }}
-        <i class="fas fa-arrow-right text-sm ms-1"></i>
+        <i class="bi bi-arrow-right text-sm ms-1"></i>
       </a>
     </div>
   </div>

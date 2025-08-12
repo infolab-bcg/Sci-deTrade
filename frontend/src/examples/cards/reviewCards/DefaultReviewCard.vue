@@ -34,14 +34,14 @@ const ratings = (rating) => {
     ${
       props.color
         ? `
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
     <i class="far fa-star text-white" aria-hidden="true"></i>
     <i class="far fa-star text-white" aria-hidden="true"></i>
     <i class="far fa-star text-white" aria-hidden="true"></i>
     <i class="far fa-star text-white" aria-hidden="true"></i>
     `
         : `
-    <i class="fas fa-star" aria-hidden="true"></i>
+    <i class="bi bi-star" aria-hidden="true"></i>
     <i class="far fa-star" aria-hidden="true"></i>
     <i class="far fa-star" aria-hidden="true"></i>
     <i class="far fa-star" aria-hidden="true"></i>
@@ -55,15 +55,15 @@ const ratings = (rating) => {
     ${
       props.color
         ? `
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
     <i class="far fa-star text-white" aria-hidden="true"></i>
     <i class="far fa-star text-white" aria-hidden="true"></i>
     <i class="far fa-star text-white" aria-hidden="true"></i>
           `
         : `
-    <i class="fas fa-star" aria-hidden="true"></i>
-    <i class="fas fa-star" aria-hidden="true"></i>
+    <i class="bi bi-star" aria-hidden="true"></i>
+    <i class="bi bi-star" aria-hidden="true"></i>
     <i class="far fa-star" aria-hidden="true"></i>
     <i class="far fa-star" aria-hidden="true"></i>
     <i class="far fa-star" aria-hidden="true"></i>
@@ -75,16 +75,16 @@ const ratings = (rating) => {
     ${
       props.color
         ? `
-         <i class="fas fa-star text-white" aria-hidden="true"></i>
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
+         <i class="bi bi-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
     <i class="far fa-star text-white" aria-hidden="true"></i>
     <i class="far fa-star text-white" aria-hidden="true"></i>
           `
         : `
-    <i class="fas fa-star" aria-hidden="true"></i>
-    <i class="fas fa-star " aria-hidden="true"></i>
-    <i class="fas fa-star " aria-hidden="true"></i>
+    <i class="bi bi-star" aria-hidden="true"></i>
+    <i class="bi bi-star " aria-hidden="true"></i>
+    <i class="bi bi-star " aria-hidden="true"></i>
     <i class="far fa-star " aria-hidden="true"></i>
     <i class="far fa-star " aria-hidden="true"></i>
         `
@@ -95,17 +95,17 @@ const ratings = (rating) => {
     ${
       props.color
         ? `
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
     <i class="far fa-star text-white" aria-hidden="true"></i>
 `
         : `
-    <i class="fas fa-star " aria-hidden="true"></i>
-    <i class="fas fa-star " aria-hidden="true"></i>
-    <i class="fas fa-star " aria-hidden="true"></i>
-    <i class="fas fa-star " aria-hidden="true"></i>
+    <i class="bi bi-star " aria-hidden="true"></i>
+    <i class="bi bi-star " aria-hidden="true"></i>
+    <i class="bi bi-star " aria-hidden="true"></i>
+    <i class="bi bi-star " aria-hidden="true"></i>
     <i class="far fa-star " aria-hidden="true"></i>
 
         `
@@ -116,18 +116,18 @@ const ratings = (rating) => {
     ${
       props.color
         ? `
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
-    <i class="fas fa-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
+    <i class="bi bi-star text-white" aria-hidden="true"></i>
 `
         : `
-    <i class="fas fa-star" aria-hidden="true"></i>
-    <i class="fas fa-star" aria-hidden="true"></i>
-    <i class="fas fa-star" aria-hidden="true"></i>
-    <i class="fas fa-star" aria-hidden="true"></i>
-    <i class="fas fa-star" aria-hidden="true"></i>
+    <i class="bi bi-star" aria-hidden="true"></i>
+    <i class="bi bi-star" aria-hidden="true"></i>
+    <i class="bi bi-star" aria-hidden="true"></i>
+    <i class="bi bi-star" aria-hidden="true"></i>
+    <i class="bi bi-star" aria-hidden="true"></i>
 
         `
     }

@@ -8,8 +8,8 @@
     ' navbar-dark bg-gradient-dark z-index-3 py-3': props.dark
   }">
     <div :class="props.transparent || props.light || props.dark
-        ? 'container'
-        : 'container-fluid px-0'
+      ? 'container'
+      : 'container-fluid px-0'
       ">
       <RouterLink class="navbar-brand d-none d-md-block" :class="[
         (props.transparent && textDark.value) || !props.transparent
@@ -19,8 +19,8 @@
         SciDataHub
       </RouterLink>
       <RouterLink class="navbar-brand d-block d-md-none" :class="props.transparent || props.dark
-          ? 'text-white'
-          : 'font-weight-bolder ms-sm-3'
+        ? 'text-white'
+        : 'font-weight-bolder ms-sm-3'
         " to="/" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
         SciDataHub
       </RouterLink>
@@ -40,8 +40,8 @@
               id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="material-icons opacity-9 me-2 text-xl" :class="getTextColor()">format_list_bulleted</i>
               区块链列表
-              <img :src="getArrowColor()" alt="down-arrow" class="arrow ms-2 d-lg-block d-none" />
-              <img :src="getArrowColor()" alt="down-arrow" class="arrow ms-1 d-lg-none d-block ms-auto" />
+              <img :src="getArrowColor()" alt="down-arrow" class="dropdown-arrow ms-2 d-lg-block d-none" />
+              <img :src="getArrowColor()" alt="down-arrow" class="dropdown-arrow ms-1 d-lg-none d-block ms-auto" />
             </a>
             <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-2 border-radius-xl mt-0 mt-lg-3"
               aria-labelledby="dropdownMenuPages" style="min-width: 120px; width: 140px;">
@@ -87,8 +87,8 @@
               id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="material-icons opacity-9 me-2 text-xl" :class="getTextColor()">calendar_view_week</i>
               订单查询
-              <img :src="getArrowColor()" alt="down-arrow" class="arrow ms-2 d-lg-block d-none" />
-              <img :src="getArrowColor()" alt="down-arrow" class="arrow ms-1 d-lg-none d-block ms-auto" />
+              <img :src="getArrowColor()" alt="down-arrow" class="dropdown-arrow ms-2 d-lg-block d-none" />
+              <img :src="getArrowColor()" alt="down-arrow" class="dropdown-arrow ms-1 d-lg-none d-block ms-auto" />
             </a>
             <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-2 border-radius-xl mt-0 mt-lg-3"
               aria-labelledby="dropdownMenuPages" style="min-width: 120px; width: 140px;">
