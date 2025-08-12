@@ -10,3 +10,4 @@ log.txt
 org3-artifacts/crypto-config/
 ledgers
 ledgers-backup
+*.tar.gz
