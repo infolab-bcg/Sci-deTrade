@@ -47,7 +47,7 @@ services:
     volumes:  
       - ./config.json:/opt/explorer/app/platform/fabric/config.json
       - ./connection-profile:/opt/explorer/app/platform/fabric/connection-profile
-      - ../deTrade-chain/deTrade-network/organizations:/tmp/crypto
+      - ../blockchain/network/organizations:/tmp/crypto
       - walletstore:/opt/explorer/wallet
     ports:
       - ${PORT:-6060}:${PORT:-6060}

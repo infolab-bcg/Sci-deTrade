@@ -18,10 +18,10 @@ organizations:
       certificates:
       - name: 'Admin@org1.example.com'
         clientPrivateKey:
-          path: '../deTrade-chain/deTrade-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/priv_sk'
+          path: '../blockchain/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/priv_sk'
         clientSignedCert:
-          path: '../deTrade-chain/deTrade-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/cert.pem'
+          path: '../blockchain/network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/cert.pem'
     connectionProfile:
-      path: '../deTrade-chain/deTrade-network/organizations/peerOrganizations/org1.example.com/connection-org1.yaml'
+      path: '../blockchain/network/organizations/peerOrganizations/org1.example.com/connection-org1.yaml'
       discover: true
 

@@ -16,7 +16,7 @@ Nums_Peer=${2:-"25"}
 
 cat << EOF >> $CCP_JSON_FILE
 {
-    "name": "deTrade-network-org\${ORG}",
+    "name": "network-org\${ORG}",
     "version": "1.0.0",
     "client": {
         "organization": "Org\${ORG}",
@@ -95,7 +95,7 @@ EOF
 # 生成YAML文件内容
 cat << EOF >> $CCP_YAML_FILE
 ---
-name: deTrade-network-org\${ORG}
+name: network-org\${ORG}
 version: 1.0.0
 client:
   organization: Org\${ORG}

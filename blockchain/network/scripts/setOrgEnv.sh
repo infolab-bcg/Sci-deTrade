@@ -12,7 +12,7 @@ ORG=${1:-Org1}
 set -e
 set -o pipefail
 
-# 获取上一级文件目录 DIR：deTrade-network
+# 获取上一级文件目录 DIR：network
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 ORDERER_CA=${DIR}/organizations/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem

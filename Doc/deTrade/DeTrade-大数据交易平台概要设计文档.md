@@ -611,11 +611,11 @@ organizations:
       certificates:
       - name: 'User1'
         clientPrivateKey:
-          path: '../deTrade-chain/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore'
+          path: '../blockchain/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore'
         clientSignedCert:
-          path: '../deTrade-chain/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/cert.pem'
+          path: '../blockchain/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/cert.pem'
     connectionProfile:
-      path: '../deTrade-chain/test-network/organizations/peerOrganizations/org1.example.com/connection-org1.yaml'
+      path: '../blockchain/test-network/organizations/peerOrganizations/org1.example.com/connection-org1.yaml'
       discover: true
 ```
 

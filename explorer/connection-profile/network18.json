@@ -1,5 +1,5 @@
 {
-    "name": "deTrade-network",
+    "name": "network",
     "version": "1.0.0",
     "client": {
         "tlsEnable": true,

@@ -16,7 +16,7 @@ const cryptoPath = envOrDefault(
     path.resolve(
         __dirname,
         '..',
-        'deTrade-chain',
+        'blockchain',
         'test-network',
         'organizations',
         'peerOrganizations',

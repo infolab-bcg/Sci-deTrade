@@ -10,7 +10,7 @@ PEER_COUNT=${2:-"25"}
 
 declare -a OUTPUT_FILES
 for ((org=1; org<=ORG_COUNT; org++)); do
-    OUTPUT_FILES[$org]="../../../explorer/connection-profile/deTrade-network$org.json"
+    OUTPUT_FILES[$org]="../../../explorer/connection-profile/network$org.json"
 done
 
 # Port mappings for 20 organizations
@@ -122,7 +122,7 @@ for ((org=1; org<=ORG_COUNT; org++)); do
     # 创建基础配置
     cat > ${OUTPUT_FILE} << EOF
 {
-    "name": "deTrade-network",
+    "name": "network",
     "version": "1.0.0",
     "client": {
         "tlsEnable": true,
@@ -228,17 +228,17 @@ for ((org=1; org<=ORG_COUNT; org++)); do
     if [ $org -eq $ORG_COUNT ]; then
         # Last organization - no comma
         cat >> ${CONFIG_FILE} << EOF
-        "deTrade-network${org}": {
+        "network${org}": {
             "name": "deTrade Network${org}",
-            "profile": "./connection-profile/deTrade-network${org}.json"
+            "profile": "./connection-profile/network${org}.json"
         }
 EOF
     else
         # Add comma for all but the last organization
         cat >> ${CONFIG_FILE} << EOF
-        "deTrade-network${org}": {
+        "network${org}": {
             "name": "deTrade Network${org}",
-            "profile": "./connection-profile/deTrade-network${org}.json"
+            "profile": "./connection-profile/network${org}.json"
         },
 EOF
     fi

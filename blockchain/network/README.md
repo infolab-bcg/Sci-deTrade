@@ -7,7 +7,7 @@ The deTrade network has a single node raft ordering service.
 First ,  navigate to the folder :
 
 ```sh
-cd /relpath/deTrade-network
+cd /relpath/network
 ```
 
 Unlock the script :
@@ -58,7 +58,7 @@ Before you can deploy the deTrade network, you need to follow the instructions t
 The `start-network.sh` has alreafy imported the necessary environment virables：
 
 ```sh
-# ROOTDIR:deTrade-network
+# ROOTDIR:network
 export PATH=${ROOTDIR}/../bin:${PWD}/../bin:$PATH
 export FABRIC_CFG_PATH=${PWD}/../config/
 ```
@@ -75,7 +75,7 @@ export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.examp
 
 Besides , the `/scripts/setOrgEnv.sh` script can be used to set up the environment variables for the organizations, this will help to be able to use the `peer` commands directly.
 
-First, ensure that the peer binaries are on your path, and the Fabric Config path is set assuming that you're in the `deTrade-network` directory.
+First, ensure that the peer binaries are on your path, and the Fabric Config path is set assuming that you're in the `network` directory.
 
 ```bash
 export PATH=${PWD}/../bin:${PWD}/../bin:$PATH
@@ -93,7 +93,7 @@ export $(./scripts/setOrgEnv.sh Org2 | xargs)
 You will now be able to run the `peer` commands in the context of Org2. If a different command prompt, you can run the same command with Org1 instead.
 The `setOrgEnv` script outputs a series of `<name>=<value>` strings. These can then be fed into the export command for your current shell.
 
-You can use the peer command to invoke the chaincode. Assuming that you are in the`deTrade-network` directory and chaincode name is "datatrading", you can use peer command  to init the ledger like this :
+You can use the peer command to invoke the chaincode. Assuming that you are in the`network` directory and chaincode name is "datatrading", you can use peer command  to init the ledger like this :
 
 ```sh
 peer chaincode invoke \
