@@ -74,7 +74,7 @@
 
 
           <li class="nav-item mx-2">
-            <RouterLink to="/create" class="nav-link ps-2 d-flex cursor-pointer align-items-center"
+            <RouterLink to="/upload" class="nav-link ps-2 d-flex cursor-pointer align-items-center"
               :class="getTextColor()">
               <i class="material-icons opacity-9 me-2 text-xl" :class="getTextColor()">drive_folder_upload</i>
               科研数据上传和存证

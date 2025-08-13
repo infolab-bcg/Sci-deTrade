@@ -9,7 +9,7 @@ import FinanceView from "../views/Finance/FinanceView.vue";
 import CreateOrder from "../views/Market/CreateOrder.vue";
 import SellOrder from "../views/Order/SellOrder.vue";
 import BuyOrder from "../views/Order/BuyOrder.vue";
-import DataView from "../views/Data/DataView.vue";
+import Upload from "../views/Data/Upload.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,13 +49,6 @@ const router = createRouter({
       component: SellOrder,
       meta: { requiresAuth: true },
     },
-    // {
-    //   path: '/maskingTrade/:id',
-    //   name: 'MaskingTrade',
-    //   component: MaskingTrade,
-    //   meta: { requiresAuth: true },
-    // },
-
     {
       path: "/buy",
       name: "buy",
@@ -75,9 +68,9 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/create",
-      name: "create",
-      component: DataView,
+      path: "/upload",
+      name: "upload",
+      component: Upload,
       meta: { requiresAuth: true },
     },
   ],

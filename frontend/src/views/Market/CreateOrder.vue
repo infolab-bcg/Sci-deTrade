@@ -201,10 +201,10 @@ onMounted(() => {
                             生成支付凭据
                           </button>
                           <button type="button" class="btn btn-success mb-0 mx-2" @click="purchaseDataset">
-                            购买数据集
+                            定制数据脱敏
                           </button>
                           <button type="button" class="btn btn-success mb-0 mx-2" @click="downloadDataset">
-                            下载数据集
+                            下载脱敏数据集
                           </button>
 
                         </div>
