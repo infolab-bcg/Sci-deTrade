@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "ipfs": "node test/ipfs_test.mjs",
+    "chaincode": "node test/chaincode_test.mjs",
+    "log": "node test/log_test.mjs"
   },
   "author": "",
   "license": "ISC",
@@ -12,8 +16,9 @@
     "@grpc/grpc-js": "^1.10",
     "@hyperledger/fabric-gateway": "^1.5",
     "cors": "^2.8.5",
-    "express": "^4.21.0",
-    "ipfs-http-client": "^49.0.4"
+    "express": "^4.21.2",
+    "kubo-rpc-client": "^5.2.0",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.5.0",

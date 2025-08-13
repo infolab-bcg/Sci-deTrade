@@ -5,7 +5,7 @@ function envOrDefault(key, defaultValue) {
     return process.env[key] || defaultValue;
 }
 
-const path = require('node:path');
+import path from "node:path";
 const channelName = envOrDefault('CHANNEL_NAME', 'mychannel');
 const chaincodeName = envOrDefault('CHAINCODE_NAME', 'datatrading');
 const mspId = envOrDefault('MSP_ID', 'Org1MSP');
@@ -60,9 +60,6 @@ const peerEndpoint = envOrDefault('PEER_ENDPOINT', 'localhost:7051');
 // Gateway peer SSL host name override.
 const peerHostAlias = envOrDefault('PEER_HOST_ALIAS', 'peer0.org1.example.com');
 
-
-
-
 const config = {
     channelName,
     chaincodeName,
@@ -75,4 +72,4 @@ const config = {
     peerHostAlias
   };
 
-  module.exports = config;
+export default config;
