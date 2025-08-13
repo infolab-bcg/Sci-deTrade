@@ -22,41 +22,32 @@
                     登录
                   </h4>
                   <h6 class="text-white font-weight-bolder text-center mt-2 mb-0">
-                    请输入您的公私钥或助记词进行登录
+                    请输入您的用户名和密码
                   </h6>
                 </div>
               </div>
               <div class="card-body">
                 <form @submit.prevent="handleLogin" class="text-start">
                   <div class="input-group input-group-outline my-3">
-                    <label for="publicKey" class="form-label"></label>
-                    <input id="publicKey" type="text" class="form-control" v-model="publicKey" placeholder="输入您的公钥"
+                    <label for="username" class="form-label"></label>
+                    <input id="username" type="text" class="form-control" v-model="username" placeholder="输入用户名"
                       required />
                   </div>
                   <div class="input-group input-group-outline mb-3">
-                    <label for="privateKey" class="form-label"></label>
-                    <input id="privateKey" :type="showPrivateKey ? 'text' : 'password'" class="form-control"
-                      v-model="privateKey" placeholder="输入您的私钥" required />
+                    <label for="password" class="form-label"></label>
+                    <input id="password" :type="showPassword ? 'text' : 'password'" class="form-control"
+                      v-model="password" placeholder="输入密码" required />
                   </div>
                   <div class="form-check form-switch mb-3">
-                    <input class="form-check-input" type="checkbox" id="showPrivateKeySwitch"
-                      v-model="showPrivateKey" />
-                    <label class="form-check-label" for="showPrivateKeySwitch">显示私钥</label>
-                  </div>
-                  <div class="input-group input-group-outline mb-3">
-                    <label for="mnemonic" class="form-label"></label>
-                    <input id="mnemonic" :type="showMnemonic ? 'text' : 'password'" class="form-control"
-                      v-model="mnemonic" placeholder="输入助记词以生成公私钥" />
-                  </div>
-                  <div class="form-check form-switch mb-3">
-                    <input class="form-check-input" type="checkbox" id="showMnemonicSwitch" v-model="showMnemonic" />
-                    <label class="form-check-label" for="showMnemonicSwitch">显示助记词</label>
+                    <input class="form-check-input" type="checkbox" id="showPasswordSwitch"
+                      v-model="showPassword" />
+                    <label class="form-check-label" for="showPasswordSwitch">显示密码</label>
                   </div>
 
                   <div class="text-center">
-                    <button type="submit" class="btn btn-success btn-lg w-100 my-4 mb-2">登录</button>
+                    <button type="submit" class="btn btn-success btn-lg w-100 my-2 mb-2">登录</button>
+                    <button @click="handleRegister" type="button" class="btn btn-primary btn-lg w-100 my-2">注册</button>
                   </div>
-                  <button @click="generateKeys" type="button" class="btn btn-secondary mt-3 w-100">生成公私钥</button>
                 </form>
               </div>
             </div>
@@ -74,41 +65,55 @@ import { useRouter } from 'vue-router';
 import NavbarDefault from "../../components/NavbarDefault.vue";
 import Header from "@/examples/Header.vue";
 
-import elliptic from 'elliptic';
-import CryptoJS from 'crypto-js';
+import axios from '../../api/axios';
 
 const authStore = useAuthStore();
 const router = useRouter();
 
-const publicKey = ref('');
-const privateKey = ref('');
-const showPrivateKey = ref(false);
-const showMnemonic = ref(false);
-const mnemonic = ref('');
+const username = ref('');
+const password = ref('');
+const showPassword = ref(false);
 
-const generateKeys = () => {
-  const ec = new elliptic.ec('secp256k1');
-  let keyPair;
 
-  if (mnemonic.value) {
-    // 使用助记词恢复密钥对
-    const hash = CryptoJS.SHA256(mnemonic.value).toString();
-    keyPair = ec.keyFromPrivate(hash);
-  } else {
-    // 生成一个随机字符串
-    const randomString = CryptoJS.lib.WordArray.random(6).toString();
-    mnemonic.value = randomString
-    const hash = CryptoJS.SHA256(randomString).toString();
-    keyPair = ec.keyFromPrivate(hash);
+
+const handleLogin = async () => {
+  try {
+    const response = await axios.post('/login', {
+      username: username.value,
+      password: password.value
+    });
+    
+    if (response.data.success) {
+      authStore.login(response.data.user);
+      router.push({ name: 'home' });
+    } else {
+      alert('登录失败：' + response.data.message);
+    }
+  } catch (error) {
+    console.error('登录错误:', error);
+    alert('登录失败，请检查网络连接');
   }
-
-  publicKey.value = keyPair.getPublic('hex');
-  privateKey.value = keyPair.getPrivate('hex');
 };
 
-const handleLogin = () => {
-  authStore.login(publicKey.value, privateKey.value);
-  router.push({ name: 'home' });
+const handleRegister = async () => {
+  try {
+    const response = await axios.post('/register', {
+      username: username.value,
+      password: password.value
+    });
+    
+    if (response.data.success) {
+      alert('注册成功！请登录');
+      // 清空表单
+      username.value = '';
+      password.value = '';
+    } else {
+      alert('注册失败：' + response.data.message);
+    }
+  } catch (error) {
+    console.error('注册错误:', error);
+    alert('注册失败，请检查网络连接');
+  }
 };
 </script>
 
@@ -184,13 +189,13 @@ const handleLogin = () => {
   border-color: #1e7e34;
 }
 
-.btn-secondary {
-  background-color: #6c757d;
-  border-color: #6c757d;
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
 }
 
-.btn-secondary:hover {
-  background-color: #5a6268;
-  border-color: #545b62;
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
 }
 </style>

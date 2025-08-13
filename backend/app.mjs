@@ -2,14 +2,20 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import serverConfig from './server_config.js'; 
-import { initializeContract, getUser, createUser, mint, burn, getDatasetList, getDataset, createDataset, createOrder, getSellOrders, getBuyOrders, getOrder, handleOrder } from './chaincode.mjs';
+import { initializeContract, getUser, createUser, mint, burn, getDatasetList, getDataset, createDataset, createOrder, getOrder, handleOrder } from './chaincode.mjs';
+import { initDatabase } from './database/db.js';
+import { handleRegister, handleLogin, handleGetUser } from './user.mjs';
 
 
 const app = express();
 
 app.use(cors(serverConfig.corsOptions));
 app.use(bodyParser.json());
-const contract = initializeContract();
+
+// 初始化数据库
+await initDatabase();
+
+const contract = await initializeContract();
 
 //获取用户
 app.get('/getUser', async (req, res) => {
@@ -168,6 +174,12 @@ app.post('/handleOrder', async (req, res) => {
     }
 })
 
+// 用户认证相关路由
+app.post('/register', handleRegister);
+app.post('/login', handleLogin);
+app.get('/user/:id', handleGetUser);
+
 app.listen(serverConfig.port, () => {
     console.log(`Server is running on port ${serverConfig.port}`);
+    console.log('用户认证系统已启动');
   });

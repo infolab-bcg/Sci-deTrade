@@ -14,7 +14,7 @@ const mspId = envOrDefault('MSP_ID', 'Org1MSP');
 const cryptoPath = envOrDefault(
     'CRYPTO_PATH',
     path.resolve(
-        __dirname,
+        path.dirname("./"),
         '..',
         'blockchain',
         'test-network',
