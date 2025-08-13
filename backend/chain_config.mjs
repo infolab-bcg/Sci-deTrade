@@ -70,6 +70,6 @@ const config = {
     tlsCertPath,
     peerEndpoint,
     peerHostAlias
-  };
+};
 
 export default config;

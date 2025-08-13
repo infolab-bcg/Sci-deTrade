@@ -2,7 +2,7 @@ import * as fs from 'node:fs/promises';
 import * as grpc from '@grpc/grpc-js';
 import path from "node:path";
 import * as crypto from 'node:crypto';
-import {connect, signers} from '@hyperledger/fabric-gateway';
+import { connect, signers } from '@hyperledger/fabric-gateway';
 import config from './chain_config.mjs';
 import logger from './log.mjs';
 
@@ -12,7 +12,7 @@ const utf8Decoder = new TextDecoder();
 
 async function getFirstDirFileName(dirPath) {
     const files = await fs.readdir(dirPath);
-    const file = files[0];  
+    const file = files[0];
     if (!file) {
         throw new Error(`No files in directory: ${dirPath}`);
     }
@@ -94,7 +94,7 @@ async function initializeContract() {
  */
 
 
-async function invokeContract(contract, func, args){
+async function invokeContract(contract, func, args) {
     logger.debug(`invoke Contract ${func}...`);
     try {
         await contract.submitTransaction(func, ...args);
@@ -109,12 +109,12 @@ async function initLedger(contract) {
     await invokeContract(contract, 'InitLedger', []);
 }
 
-async function createUser(contract, ID){
+async function createUser(contract, ID) {
     logger.info(`createUser ${ID}...`);
     await invokeContract(contract, 'CreateUser', [ID, '0']);
 }
 
-async function getUser(contract, ID){
+async function getUser(contract, ID) {
     logger.info(`getUser ${ID}...`);
 
     const resultBytes = await contract.evaluateTransaction('GetUser', ID);
@@ -125,27 +125,27 @@ async function getUser(contract, ID){
     return result;
 }
 
-async function mint(contract, ID, value){
+async function mint(contract, ID, value) {
     logger.info(`mint ${ID} ${value}...`);
     await invokeContract(contract, 'Mint', [ID, value]);
 }
 
-async function burn(contract, ID, value){
+async function burn(contract, ID, value) {
     logger.info(`burn ${ID} ${value}...`);
     await invokeContract(contract, 'Burn', [ID, value]);
 }
 
-async function createDataset(contract, title, description, hash, ipfsAddress, n_subset, owner, price, tags){
+async function createDataset(contract, title, description, hash, ipfsAddress, n_subset, owner, price, tags) {
     logger.info(`createDataset ${title}...`);
     await invokeContract(contract, 'CreateDataset', [title, description, hash, ipfsAddress, n_subset, owner, price, tags]);
 }
 
-async function createOrder(contract, buyer, datasetID, payHash){
+async function createOrder(contract, buyer, datasetID, payHash) {
     logger.info(`createOrder ${buyer} ${datasetID} ${payHash}...`);
     await invokeContract(contract, 'CreateOrder', [buyer, datasetID, payHash]);
 }
 
-async function getDataset(contract, datasetID){
+async function getDataset(contract, datasetID) {
     logger.info(`getDataset ${datasetID}...`);
 
     const resultBytes = await contract.evaluateTransaction('GetDataset', datasetID);
@@ -156,7 +156,7 @@ async function getDataset(contract, datasetID){
     return result;
 }
 
-async function getOrder(contract, orderID){
+async function getOrder(contract, orderID) {
     logger.info(`getOrder ${orderID}...`);
     const resultBytes = await contract.evaluateTransaction('GetOrder', orderID);
 
@@ -169,11 +169,11 @@ async function getOrder(contract, orderID){
 async function getDatasetList(contract) {
     logger.info("getDatasetList");
 
-	const resultBytes = await contract.evaluateTransaction('GetDatasetList');
+    const resultBytes = await contract.evaluateTransaction('GetDatasetList');
 
-	const resultJson = utf8Decoder.decode(resultBytes);
-	const result = JSON.parse(resultJson);
-	logger.debug(`getDatasetList: ${resultJson}`);
+    const resultJson = utf8Decoder.decode(resultBytes);
+    const result = JSON.parse(resultJson);
+    logger.debug(`getDatasetList: ${resultJson}`);
     return result;
 }
 
@@ -187,7 +187,7 @@ async function getOrderList(contract) {
     return result;
 }
 
-async function handleOrder(contract, orderID, n, payword){
+async function handleOrder(contract, orderID, n, payword) {
     logger.info(`handleOrder ${orderID}...`);
     await invokeContract(contract, 'HandleOrder', [orderID, n, payword]);
 }

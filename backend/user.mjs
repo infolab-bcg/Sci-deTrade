@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { createUser as dbCreateUser, findUserByUsername, findUserById } from './database/db.js';
+import { createUser as dbCreateUser, findUserByUsername, findUserById } from './database/db.mjs';
 
 // 密码加密函数
 const hashPassword = (password) => {

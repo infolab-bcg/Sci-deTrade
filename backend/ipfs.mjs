@@ -1,11 +1,11 @@
-import {create} from 'kubo-rpc-client';
+import { create } from 'kubo-rpc-client';
 import fs from 'node:fs';
 import logger from './log.mjs';
 
 // 连接ipfs默认接口 http://127.0.0.1:5001
 const client = create();
 
-async function addText(text = 'Hello world!'){
+async function addText(text = 'Hello world!') {
     const { cid } = await client.add(text);
     logger.info(cid);
 }
@@ -29,7 +29,7 @@ async function addFile(path) {
 async function cpToMFS(ipfsCID, mfsFolder) {
     logger.info(`📁 Creating folder ${mfsFolder}...`);
     try {
-        await client.files.mkdir(mfsFolder, {parents: true});
+        await client.files.mkdir(mfsFolder, { parents: true });
         logger.info(`✅ Folder created at ${mfsFolder}`)
     } catch (error) {
         console.error('Failed to create folder:', error);
@@ -49,7 +49,7 @@ async function cpToMFS(ipfsCID, mfsFolder) {
 
 async function getTime() {
     const now = new Date();
-    
+
     // 获取上海时区的时间
     const shanghaiTime = new Intl.DateTimeFormat('zh-CN', {
         timeZone: 'Asia/Shanghai',
@@ -61,7 +61,7 @@ async function getTime() {
         second: '2-digit',
         hour12: false
     }).formatToParts(now);
-    
+
     // 提取各个部分
     const year = shanghaiTime.find(part => part.type === 'year').value;
     const month = shanghaiTime.find(part => part.type === 'month').value;
@@ -69,11 +69,11 @@ async function getTime() {
     const hour = shanghaiTime.find(part => part.type === 'hour').value;
     const minute = shanghaiTime.find(part => part.type === 'minute').value;
     const second = shanghaiTime.find(part => part.type === 'second').value;
-    
+
     return `${year}/${month}/${day}/${hour}/${minute}/${second}`;
 }
 
-async function uploadToIPFS(path, mfsRoot="/my-file"){
+async function uploadToIPFS(path, mfsRoot = "/my-file") {
     const ipfsCID = await addFile(path);
     const dateStr = await getTime();
     const mpsFloder = mfsRoot + "/" + dateStr + "/";
@@ -83,11 +83,11 @@ async function uploadToIPFS(path, mfsRoot="/my-file"){
     return ipfsCID;
 }
 
-async function downloadFromIPFS(cid){
+async function downloadFromIPFS(cid) {
     try {
         const path = `/ipfs/${cid}`;
         logger.info(`Downloading file from IPFS: ${path}...`);
-        
+
         client.get(path);
         logger.info("可以在IPFS中查询到文件，但是目前还不会如何下载这个文件，需要继续研究")
     } catch (error) {
