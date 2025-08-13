@@ -195,3 +195,41 @@ export const handleGetUser = async (req, res) => {
         });
     }
 };
+
+// 初始化默认用户
+export const initializeDefaultUser = async () => {
+    try {
+        const defaultUsername = 'ustc';
+        const defaultPassword = 'ustc@1958';
+        
+        // 检查默认用户是否已存在
+        const existingUser = await findUserByUsername(defaultUsername);
+        if (existingUser) {
+            console.log('默认用户已存在，跳过创建');
+            return {
+                success: true,
+                message: '默认用户已存在'
+            };
+        }
+        
+        // 创建默认用户
+        const result = await registerUser(defaultUsername, defaultPassword);
+        if (result.success) {
+            console.log('默认用户创建成功:', defaultUsername);
+            return {
+                success: true,
+                message: '默认用户创建成功',
+                user: result.user
+            };
+        } else {
+            console.error('默认用户创建失败:', result.message);
+            return result;
+        }
+    } catch (error) {
+        console.error('初始化默认用户时发生错误:', error);
+        return {
+            success: false,
+            message: error.message
+        };
+    }
+};

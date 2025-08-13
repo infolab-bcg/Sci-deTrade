@@ -4,7 +4,7 @@ import cors from 'cors';
 import serverConfig from './server_config.js';
 import { initializeContract, getUser, createUser, mint, burn, getDatasetList, getDataset, createDataset, createOrder, getOrder, handleOrder } from './chaincode.mjs';
 import { initDatabase } from './database/db.mjs';
-import { handleRegister, handleLogin, handleGetUser } from './user.mjs';
+import { handleRegister, handleLogin, handleGetUser, initializeDefaultUser } from './user.mjs';
 
 
 const app = express();
@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 
 // 初始化数据库
 await initDatabase();
+await initializeDefaultUser();
 
 const contract = await initializeContract();
 
