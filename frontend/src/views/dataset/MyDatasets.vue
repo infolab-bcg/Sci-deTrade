@@ -34,14 +34,12 @@
           </button>
         </div>
         
-        <!-- 醒目的上传数据集按钮 -->
-         <!-- 路由到/upload -->
         <div class="text-center mb-5">
           <button class="btn btn-upload btn-lg px-5 py-3 shadow-lg" @click="router.push('/upload')">
             <i class="fas fa-cloud-upload-alt me-3"></i>
-            <span class="fw-bold">上传数据集</span>
+            <span class="fw-bold">新建数据集</span>
           </button>
-          <p class="text-muted mt-2 mb-0">上传您的科研数据集到区块链</p>
+          <!-- <p class="text-muted mt-2 mb-0">上传您的科研数据集到区块链</p> -->
         </div>
         
         <!-- 加载状态 -->
@@ -77,36 +75,10 @@
                   >
                     <div class="card h-100 shadow-sm border-secondary">
                       <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                          <h5 class="card-title mb-0">{{ dataset.fullName || dataset.name }}</h5>
-                          <div class="d-flex flex-wrap gap-1">
-                            <span class="badge bg-secondary">私有</span>
-                            <span v-if="dataset.canMaskingShare" class="badge bg-info">可脱敏共享</span>
-                            <span v-if="dataset.canCustomMaskingTrade" class="badge bg-warning">可定制脱敏交易</span>
-                            <span v-if="dataset.canDataService" class="badge bg-primary">可验证数据服务</span>
-                          </div>
-                        </div>
+                        <h5 class="card-title mb-3">{{ dataset.fullName || dataset.name }}</h5>
                         <p class="card-text text-muted mb-3">{{ dataset.description }}</p>
-                        
-                        <!-- 标签说明区域 -->
-                        <div v-if="dataset.canMaskingShare || dataset.canCustomMaskingTrade || dataset.canDataService" class="mb-3">
-                          <div class="d-flex flex-wrap gap-2 small text-muted">
-                            <div v-if="dataset.canMaskingShare" class="d-flex align-items-center">
-                              <i class="fas fa-shield-alt me-1"></i>
-                              <span>支持脱敏共享</span>
-                            </div>
-                            <div v-if="dataset.canCustomMaskingTrade" class="d-flex align-items-center">
-                              <i class="fas fa-exchange-alt me-1"></i>
-                              <span>支持定制交易</span>
-                            </div>
-                            <div v-if="dataset.canDataService" class="d-flex align-items-center">
-                              <i class="fas fa-check-circle me-1"></i>
-                              <span>支持数据验证</span>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="d-flex justify-content-between align-items-center">
+                                                
+                        <div class="d-flex justify-content-between align-items-center mb-3">
                           <small class="text-muted">
                             <i class="fas fa-database me-1"></i>
                             {{ dataset.name }}
@@ -119,6 +91,14 @@
                               查看详情
                             </button>
                           </div>
+                        </div>
+                        
+                        <!-- 标签区域 -->
+                        <div class="d-flex flex-wrap gap-1">
+                          <span class="badge bg-secondary">私有</span>
+                          <span v-if="dataset.canMaskingShare" class="badge bg-info">可脱敏共享</span>
+                          <span v-if="dataset.canCustomMaskingTrade" class="badge bg-warning">可定制脱敏交易</span>
+                          <span v-if="dataset.canDataService" class="badge bg-primary">可验证数据服务</span>
                         </div>
                       </div>
                     </div>
@@ -145,36 +125,9 @@
                   >
                     <div class="card h-100 shadow-sm border-success">
                       <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                          <h5 class="card-title mb-0">{{ dataset.fullName || dataset.name }}</h5>
-                          <div class="d-flex flex-wrap gap-1">
-                            <span class="badge bg-success">公开</span>
-                            <span v-if="dataset.canMaskingShare" class="badge bg-info">可脱敏共享</span>
-                            <span v-if="dataset.canCustomMaskingTrade" class="badge bg-warning">可定制脱敏交易</span>
-                            <span v-if="dataset.canDataService" class="badge bg-primary">可验证数据服务</span>
-                          </div>
-                        </div>
-                        <p class="card-text text-muted mb-3">{{ dataset.description }}</p>
-                        
-                        <!-- 标签说明区域 -->
-                        <div v-if="dataset.canMaskingShare || dataset.canCustomMaskingTrade || dataset.canDataService" class="mb-3">
-                          <div class="d-flex flex-wrap gap-2 small text-muted">
-                            <div v-if="dataset.canMaskingShare" class="d-flex align-items-center">
-                              <i class="fas fa-shield-alt me-1"></i>
-                              <span>支持脱敏共享</span>
-                            </div>
-                            <div v-if="dataset.canCustomMaskingTrade" class="d-flex align-items-center">
-                              <i class="fas fa-exchange-alt me-1"></i>
-                              <span>支持定制交易</span>
-                            </div>
-                            <div v-if="dataset.canDataService" class="d-flex align-items-center">
-                              <i class="fas fa-check-circle me-1"></i>
-                              <span>支持数据验证</span>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-3">{{ dataset.fullName || dataset.name }}</h5>
+                        <p class="card-text text-muted mb-3">{{ dataset.description }}</p>                      
+                        <div class="d-flex justify-content-between align-items-center mb-3">
                           <small class="text-muted">
                             <i class="fas fa-database me-1"></i>
                             {{ dataset.name }}
@@ -187,6 +140,14 @@
                               查看详情
                             </button>
                           </div>
+                        </div>
+                        
+                        <!-- 标签区域 -->
+                        <div class="d-flex flex-wrap gap-1">
+                          <span class="badge bg-success">公开</span>
+                          <span v-if="dataset.canMaskingShare" class="badge bg-info">可脱敏共享</span>
+                          <span v-if="dataset.canCustomMaskingTrade" class="badge bg-warning">可定制脱敏交易</span>
+                          <span v-if="dataset.canDataService" class="badge bg-primary">可验证数据服务</span>
                         </div>
                       </div>
                     </div>

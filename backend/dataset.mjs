@@ -110,13 +110,15 @@ export async function handleGetDatasetsByName(req, res) {
         // 遍历所有dataset表
         const response = await getAllBlockchains();
         const blockchains = response.blockchains;
-        logger.debug(`blockchains: ${JSON.stringify(blockchains)}`);
         const datasets = [];
         for (const blockchain of blockchains) {
-            logger.debug(`blockchain: ${JSON.stringify(blockchain)}`);
-            const result = await getDatasetsByOwner(blockchain.name, name);
-            logger.debug(`result: ${JSON.stringify(result)}`);
-            datasets.push(...result)
+            const results = await getDatasetsByOwner(blockchain.name, name);
+            // 遍历results列表，给每一项添加blockchainName 
+            for (const result of results){
+                result.blockchainName = blockchain.name;
+            }
+            // logger.debug(`getDatasetsByOwner: ${JSON.stringify(results, null, 2)}`)
+            datasets.push(...results)
         }
         res.json({ success: true, message: '数据集获取成功', data: datasets })
     } catch (error) {

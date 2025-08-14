@@ -153,6 +153,7 @@ export async function getDatasetsByOwner(blockchainName, owner) {
 		logger.debug(`get datasets by owner ${owner} for blockchain: ${blockchainName}`);
 		const rows = await dbAll(`SELECT * FROM datasets_${blockchainName} WHERE owner = ?`, [owner]);
 		logger.debug(`get datasets by owner ${owner} for blockchain: ${blockchainName} success`);
+		logger.debug(`result: ${JSON.stringify(rows, null, 2)}`)
 		return rows;
 	} catch (err) {
 		logger.error(`get datasets by owner ${owner} for blockchain: ${blockchainName} failed: ${err}`);
