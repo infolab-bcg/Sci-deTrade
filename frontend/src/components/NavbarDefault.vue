@@ -45,7 +45,7 @@
           </li>
 
           <li class="nav-item mx-2">
-            <RouterLink to="/market" class="nav-link ps-2 d-flex cursor-pointer align-items-center"
+            <RouterLink :to="`/mydatasets/${authStore.username}`" class="nav-link ps-2 d-flex cursor-pointer align-items-center"
               :class="getTextColor()">
               <i class="material-icons opacity-9 me-2 text-xl" :class="getTextColor()">list_alt</i>
               我的科研数据集
@@ -189,6 +189,9 @@ watch(
 );
 
 const authStore = useAuthStore();
+console.log("print authStore")
+console.log(authStore.isLoggedIn);
+console.log(authStore.username);
 const router = useRouter();
 
 const handleLogout = () => {

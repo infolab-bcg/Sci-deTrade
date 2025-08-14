@@ -11,7 +11,7 @@ import { addDemoBlockchains } from './blockchainList.mjs';
 import { handleGetAllBlockchains } from './blockchainList.mjs';
 
 import { initDatasetTables, deleteDatasetTables, addDemoDatasets } from './dataset.mjs';
-import { handleAddDataset, handleGetPublicDatasets, handleUpdateMaskingDatasetIPFSAddress } from './dataset.mjs';
+import { handleAddDataset, handleGetPublicDatasets, handleUpdateMaskingDatasetIPFSAddress, handleGetDatasetsByName } from './dataset.mjs';
 
 const app = express();
 
@@ -38,6 +38,7 @@ app.get('/getblockchains', handleGetAllBlockchains);
 app.post('/addDataset/:blockchainName', handleAddDataset);
 app.get('/getPublicDatasets/:blockchainName', handleGetPublicDatasets);
 app.post('/updateMaskingDatasetIPFSAddress/:blockchainName', handleUpdateMaskingDatasetIPFSAddress);
+app.get('/getDatasetsByName/:name', handleGetDatasetsByName);
 
 const contract = await initializeContract();
 

@@ -150,12 +150,12 @@ export async function getDatasetByName(blockchainName, name) {
 
 export async function getDatasetsByOwner(blockchainName, owner) {
 	try {
-		logger.debug(`get datasets by owner for blockchain: ${blockchainName}`);
+		logger.debug(`get datasets by owner ${owner} for blockchain: ${blockchainName}`);
 		const rows = await dbAll(`SELECT * FROM datasets_${blockchainName} WHERE owner = ?`, [owner]);
-		logger.debug(`get datasets by owner for blockchain: ${blockchainName} success`);
+		logger.debug(`get datasets by owner ${owner} for blockchain: ${blockchainName} success`);
 		return rows;
 	} catch (err) {
-		logger.error(`get datasets by owner for blockchain: ${blockchainName} failed: ${err}`);
+		logger.error(`get datasets by owner ${owner} for blockchain: ${blockchainName} failed: ${err}`);
 		throw err;
 	}
 }

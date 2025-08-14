@@ -3,29 +3,26 @@ import { defineStore } from 'pinia';
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
-    publicKey: localStorage.getItem('publicKey') || '',
-    privateKey: localStorage.getItem('privateKey') || '',
+    username: localStorage.getItem('username') || '',
+
   }),
   actions: {
-    login(publicKey, privateKey) {
-      // 保存公钥和私钥到本地存储
-      this.publicKey = publicKey;
-      this.privateKey = privateKey;
+    login(user) {
+      // 保存用户信息到本地存储
+      this.username = user.username;
       this.isLoggedIn = true;
 
-      localStorage.setItem('publicKey', publicKey);
-      localStorage.setItem('privateKey', privateKey);
-      localStorage.setItem('isLoggedIn', true);
+      localStorage.setItem('username', user.username);
+
+      localStorage.setItem('isLoggedIn', 'true');
     },
     logout() {
-      // 清空公钥和私钥，并设置登录状态为 false
-      this.publicKey = '';
-      this.privateKey = '';
+      // 清空用户信息，并设置登录状态为 false
+      this.username = '';
       this.isLoggedIn = false;
 
-      localStorage.removeItem('publicKey');
-      localStorage.removeItem('privateKey');
-      localStorage.setItem('isLoggedIn', false);
+      localStorage.removeItem('username');
+      localStorage.setItem('isLoggedIn', 'false');
     },
   },
 });

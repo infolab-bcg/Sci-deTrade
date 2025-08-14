@@ -11,7 +11,8 @@ import SellOrder from "../views/Order/SellOrder.vue";
 import BuyOrder from "../views/Order/BuyOrder.vue";
 import Upload from "../views/Data/Upload.vue";
 import BlockchainList from "../views/blockchain/BlockchainList.vue";
-import Datasets from "../views/dataset/PublicDatasets.vue";
+import MyDatasets from "../views/dataset/MyDatasets.vue";
+import PublicDatasets from "../views/dataset/PublicDatasets.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -34,7 +35,13 @@ const router = createRouter({
     {
       path: "/publicDataset/:blockchainName",
       name: "publicDataset",
-      component: Datasets,
+      component: PublicDatasets,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/mydatasets/:name",
+      name: "MyDataset",
+      component: MyDatasets,
       meta: { requiresAuth: true },
     },
     {
