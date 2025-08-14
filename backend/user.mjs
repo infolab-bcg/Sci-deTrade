@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { createUser as dbCreateUser, findUserByUsername, findUserById } from './database/userTable.mjs';
+import { createUser as dbCreateUser, findUserByUsername } from './database/userTable.mjs';
 import logger from './log.mjs';
 
 // 密码加密函数
@@ -95,30 +95,6 @@ export const loginUser = async (username, password) => {
     }
 };
 
-// 根据ID获取用户信息
-export const getUserById = async (id) => {
-    try {
-        logger.debug('Get user by id:', id);
-        const user = await findUserById(id);
-        if (!user) {
-            throw new Error('用户不存在');
-        }
-
-        return {
-            success: true,
-            user: {
-                id: user.id,
-                username: user.username,
-                created_at: user.created_at
-            }
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.message
-        };
-    }
-};
 
 // 用户注册路由处理函数
 export const handleRegister = async (req, res) => {
@@ -205,11 +181,11 @@ export const initializeDefaultUser = async () => {
     try {
         const defaultUsername = 'ustc';
         const defaultPassword = 'ustc@1958';
-        
+        logger.debug(`初始化默认用户: ${defaultUsername}`);
         // 检查默认用户是否已存在
         const existingUser = await findUserByUsername(defaultUsername);
         if (existingUser) {
-            console.log('默认用户已存在，跳过创建');
+            logger.debug('默认用户已存在，跳过创建');
             return {
                 success: true,
                 message: '默认用户已存在'
@@ -219,18 +195,18 @@ export const initializeDefaultUser = async () => {
         // 创建默认用户
         const result = await registerUser(defaultUsername, defaultPassword);
         if (result.success) {
-            console.log('默认用户创建成功:', defaultUsername);
+            logger.debug('默认用户创建成功:', defaultUsername);
             return {
                 success: true,
                 message: '默认用户创建成功',
                 user: result.user
             };
         } else {
-            console.error('默认用户创建失败:', result.message);
+            logger.error('默认用户创建失败:', result.message);
             return result;
         }
     } catch (error) {
-        console.error('初始化默认用户时发生错误:', error);
+        logger.error('初始化默认用户时发生错误:', error);
         return {
             success: false,
             message: error.message

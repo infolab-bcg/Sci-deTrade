@@ -15,13 +15,12 @@ const dbRun = promisify(db.run.bind(db));
 const dbGet = promisify(db.get.bind(db));
 
 // 初始化用户表
-export const initUserTable = async () => {
+export async function initUserTable() {
 	try {
 		logger.debug('初始化用户表...');
 		await dbRun(`
       CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT UNIQUE NOT NULL,
+        username TEXT PRIMARY KEY NOT NULL,
         password TEXT NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -34,7 +33,7 @@ export const initUserTable = async () => {
 	}
 };
 
-export const deleteUserTable = async () => {
+export async function deleteUserTable() {
 	try {
 		logger.debug('删除用户表...');
 		await dbRun('DROP TABLE IF EXISTS users');
@@ -46,27 +45,20 @@ export const deleteUserTable = async () => {
 };
 
 // 创建用户
-export const createUser = async (username, password) => {
-	return new Promise((resolve, reject) => {
+export async function createUser(username, password) {
+	try {
 		logger.debug(`创建用户: ${username}`);
-		const stmt = db.prepare('INSERT INTO users (username, password) VALUES (?, ?)');
-		stmt.run([username, password], function (err) {
-			if (err) {
-				stmt.finalize();
-				logger.error(`创建用户失败: ${username}`);
-				reject(err);
-			} else {
-				logger.debug(`创建用户成功: ${username}`);
-				const result = { id: this.lastID, username };
-				stmt.finalize();
-				resolve(result);
-			}
-		});
-	});
+		const result = await dbRun('INSERT INTO users (username, password) VALUES (?, ?)', [username, password]);
+		logger.debug(`创建用户成功: ${username}`);
+		return { result };
+	} catch (err) {
+		logger.error(`创建用户失败: ${username}`, err);
+		throw err;
+	}
 };
 
 // 根据用户名查找用户
-export const findUserByUsername = async (username) => {
+export async function findUserByUsername(username) {
 	try {
 		logger.debug(`查找用户: ${username}`);
 		const row = await dbGet('SELECT * FROM users WHERE username = ?', [username]);
@@ -78,28 +70,16 @@ export const findUserByUsername = async (username) => {
 	}
 };
 
-// 根据ID查找用户
-export const findUserById = async (id) => {
-	try {
-		logger.debug(`查找用户: ${id}`);
-		const row = await dbGet('SELECT id, username, created_at FROM users WHERE id = ?', [id]);
-		logger.debug(`查找用户成功: ${id}`);
-		return row;
-	} catch (err) {
-		logger.error(`查找用户失败: ${id}`);
-		throw err;
-	}
-};
 
 // 删除用户
-export const deleteUser = async (id) => {
+export async function deleteUser(username) {
 	try {
-		logger.debug(`删除用户: ${id}`);
-		await dbRun('DELETE FROM users WHERE id = ?', [id]);
-		logger.debug(`删除用户成功: ${id}`);
+		logger.debug(`删除用户: ${username}`);
+		await dbRun('DELETE FROM users WHERE username = ?', [username]);
+		logger.debug(`删除用户成功: ${username}`);
 		return true;
 	} catch (err) {
-		logger.error(`删除用户失败: ${id}`);
+		logger.error(`删除用户失败: ${username}`);
 		throw err;
 	}
 };

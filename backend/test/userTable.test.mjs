@@ -5,4 +5,4 @@ await initUserTable();
 await createUser('test', 'test');
 const user = await findUserByUsername('test');
 console.log(user);
-await deleteUser(user.id);
+await deleteUser(user.username);
