@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import serverConfig from './server_config.mjs';
-import { initializeContract, getUser, addUser, mint, burn, getDatasetList, getDataset, createDataset, createOrder, getOrder, handleOrder } from './chaincode.mjs';
+import { initializeContract, getUser, mint, burn, getDatasetList, getDataset, createDataset, createOrder, getOrder, handleOrder } from './chaincode.mjs';
 import { initUserTable, deleteUserTable } from './database/userTable.mjs';
 import { handleRegister, handleLogin, handleGetUser, addDemoUser } from './user.mjs';
 
