@@ -17,7 +17,7 @@ const verifyPassword = (password, hashedPassword) => {
 };
 
 // 用户注册
-export const registerUser = async (username, password) => {
+export async function registerUser(username, password) {
     try {
         // 检查用户名是否已存在
         const existingUser = await findUserByUsername(username);
@@ -55,10 +55,10 @@ export const registerUser = async (username, password) => {
             message: error.message
         };
     }
-};
+}
 
 // 用户登录
-export const loginUser = async (username, password) => {
+export async function loginUser(username, password) {
     try {
         logger.debug('Login user:', username);
         // 验证输入
@@ -93,11 +93,11 @@ export const loginUser = async (username, password) => {
             message: error.message
         };
     }
-};
+}
 
 
 // 用户注册路由处理函数
-export const handleRegister = async (req, res) => {
+export async function handleRegister(req, res) {
     try {
         const { username, password } = req.body;
         const result = await registerUser(username, password);
@@ -121,10 +121,10 @@ export const handleRegister = async (req, res) => {
             message: '服务器内部错误'
         });
     }
-};
+}
 
 // 用户登录路由处理函数
-export const handleLogin = async (req, res) => {
+export async function handleLogin(req, res) {
     try {
         const { username, password } = req.body;
         const result = await loginUser(username, password);
@@ -148,10 +148,10 @@ export const handleLogin = async (req, res) => {
             message: '服务器内部错误'
         });
     }
-};
+}
 
 // 获取用户信息路由处理函数
-export const handleGetUser = async (req, res) => {
+export async function handleGetUser(req, res) {
     try {
         const { id } = req.params;
         const result = await getUserById(id);
@@ -174,10 +174,10 @@ export const handleGetUser = async (req, res) => {
             message: '服务器内部错误'
         });
     }
-};
+}
 
 // 初始化默认用户
-export const initializeDefaultUser = async () => {
+export async function initializeDefaultUser() {
     try {
         const defaultUsername = 'ustc';
         const defaultPassword = 'ustc@1958';
@@ -212,4 +212,4 @@ export const initializeDefaultUser = async () => {
             message: error.message
         };
     }
-};
+}
