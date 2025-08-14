@@ -48,46 +48,26 @@
             <RouterLink to="/market" class="nav-link ps-2 d-flex cursor-pointer align-items-center"
               :class="getTextColor()">
               <i class="material-icons opacity-9 me-2 text-xl" :class="getTextColor()">list_alt</i>
-              数据集列表
+              我的科研数据集
             </RouterLink>
           </li>
-
+          <!-- 修改数据交易订单icon为合适icon -->
+          <li class="nav-item mx-2">
+            <RouterLink to="/upload" class="nav-link ps-2 d-flex cursor-pointer align-items-center"
+              :class="getTextColor()">
+              <i class="material-icons opacity-9 me-2 text-xl" :class="getTextColor()">swap_horiz</i>
+              数据交易订单
+            </RouterLink>
+          </li>
 
           <li class="nav-item mx-2">
             <RouterLink to="/upload" class="nav-link ps-2 d-flex cursor-pointer align-items-center"
               :class="getTextColor()">
-              <i class="material-icons opacity-9 me-2 text-xl" :class="getTextColor()">drive_folder_upload</i>
-              科研数据上传和存证
+              <i class="material-icons opacity-9 me-2 text-xl" :class="getTextColor()">query_stats</i>
+              数据服务订单
             </RouterLink>
           </li>
 
-
-          <li class="nav-item dropdown dropdown-hover mx-2">
-            <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" :class="getTextColor()"
-              id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="material-icons opacity-9 me-2 text-xl" :class="getTextColor()">calendar_view_week</i>
-              订单查询
-              <img :src="getArrowColor()" alt="down-arrow" class="dropdown-arrow ms-2 d-lg-block d-none" />
-              <img :src="getArrowColor()" alt="down-arrow" class="dropdown-arrow ms-1 d-lg-none d-block ms-auto" />
-            </a>
-            <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-2 border-radius-xl mt-0 mt-lg-3"
-              aria-labelledby="dropdownMenuPages" style="min-width: 120px; width: 140px;">
-              <div class="row d-none d-lg-block">
-                <div class="col-12 px-3 py-1">
-                  <div class="row">
-                    <div class="text-center">
-                      <RouterLink :to="{ name: 'buy' }" class="dropdown-item border-radius-md">
-                        <span>购买订单管理 </span>
-                      </RouterLink>
-                      <RouterLink :to="{ name: 'sell' }" class="dropdown-item border-radius-md">
-                        <span>出售订单管理 </span>
-                      </RouterLink>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
 
           <li class="nav-item mx-2">
             <RouterLink to="/finance" class="nav-link ps-2 d-flex cursor-pointer align-items-center"
