@@ -11,7 +11,7 @@ import SellOrder from "../views/Order/SellOrder.vue";
 import BuyOrder from "../views/Order/BuyOrder.vue";
 import Upload from "../views/Data/Upload.vue";
 import BlockchainList from "../views/blockchain/BlockchainList.vue";
-import Datasets from "../views/dataset/Datasets.vue";
+import Datasets from "../views/dataset/PublicDatasets.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
