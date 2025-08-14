@@ -1,6 +1,6 @@
 
-
-async function randStr(len) {
+import crypto from 'crypto';
+export async function randStr(len) {
     let str = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < len; i++) {
@@ -9,5 +9,9 @@ async function randStr(len) {
     return str;
 }
 
-
-export { randStr };
+export async function hash(str) {
+    const hashfunc = crypto.createHash('sha256');
+    hashfunc.update(str);
+    const hash = hashfunc.digest('hex');
+    return hash;
+}
