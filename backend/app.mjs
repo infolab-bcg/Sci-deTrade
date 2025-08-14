@@ -28,6 +28,17 @@ await deleteDatasetTables();
 await initDatasetTables();
 await addDemoDatasets();
 
+// 用户认证相关路由
+app.post('/register', handleRegister);
+app.post('/login', handleLogin);
+app.get('/user/:id', handleGetUser);
+app.get('/getblockchains', handleGetAllBlockchains);
+
+// 数据集相关路由
+app.post('/addDataset/:blockchainName', handleAddDataset);
+app.get('/getPublicDatasets/:blockchainName', handleGetPublicDatasets);
+app.post('/updateMaskingDatasetIPFSAddress/:blockchainName', handleUpdateMaskingDatasetIPFSAddress);
+
 const contract = await initializeContract();
 
 //获取用户
@@ -187,16 +198,6 @@ app.post('/handleOrder', async (req, res) => {
     }
 })
 
-// 用户认证相关路由
-app.post('/register', handleRegister);
-app.post('/login', handleLogin);
-app.get('/user/:id', handleGetUser);
-app.get('/getblockchains', handleGetAllBlockchains);
-
-// 数据集相关路由
-app.post('/addDataset/:blockchainName', handleAddDataset);
-app.get('/getPublicDatasets/:blockchainName', handleGetPublicDatasets);
-app.post('/updateMaskingDatasetIPFSAddress/:blockchainName', handleUpdateMaskingDatasetIPFSAddress);
 
 app.listen(serverConfig.port, () => {
     console.log(`Server is running on port ${serverConfig.port}`);
