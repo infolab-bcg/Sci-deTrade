@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { createUser as dbCreateUser, getUserByUsername } from './database/userTable.mjs';
+import { addUser as dbCreateUser, getUserByUsername } from './database/userTable.mjs';
 import logger from './log.mjs';
 
 // 密码加密函数

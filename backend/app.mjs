@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import serverConfig from './server_config.mjs';
-import { initializeContract, getUser, createUser, mint, burn, getDatasetList, getDataset, createDataset, createOrder, getOrder, handleOrder } from './chaincode.mjs';
+import { initializeContract, getUser, addUser, mint, burn, getDatasetList, getDataset, createDataset, createOrder, getOrder, handleOrder } from './chaincode.mjs';
 import { initUserTable, deleteUserTable } from './database/userTable.mjs';
 import { handleRegister, handleLogin, handleGetUser, addDemoUser } from './user.mjs';
 
@@ -42,7 +42,7 @@ app.get('/getUser', async (req, res) => {
         // 尝试创建用户
         try {
             const uID = req.query.uID;
-            const createResult = await createUser(contract, uID);
+            const createResult = await addUser(contract, uID);
             res.json({ success: true, result: createResult });
         } catch (createError) {
             console.error('CreateUser fail', createError);
@@ -53,10 +53,10 @@ app.get('/getUser', async (req, res) => {
 
 
 // 创建用户
-app.post('/createUser', async (req, res) => {
+app.post('/addUser', async (req, res) => {
     try {
         const uID = req.query.uID;
-        const result = await createUser(contract, uID);
+        const result = await addUser(contract, uID);
         res.json({ success: true, result });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });

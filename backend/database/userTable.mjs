@@ -45,7 +45,7 @@ export async function deleteUserTable() {
 };
 
 // 创建用户
-export async function createUser(username, password) {
+export async function addUser(username, password) {
 	try {
 		logger.debug(`创建用户: ${username}`);
 		const result = await dbRun('INSERT INTO users (username, password) VALUES (?, ?)', [username, password]);
