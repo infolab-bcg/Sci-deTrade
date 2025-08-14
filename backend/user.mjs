@@ -177,10 +177,10 @@ export async function handleGetUser(req, res) {
 }
 
 // 初始化默认用户
-export async function initializeDefaultUser() {
+export async function addDemoUser() {
     try {
-        const defaultUsername = 'ustc';
-        const defaultPassword = 'ustc@1958';
+        const defaultUsername = 'demoUser';
+        const defaultPassword = 'demoUser';
         logger.debug(`初始化默认用户: ${defaultUsername}`);
         // 检查默认用户是否已存在
         const existingUser = await findUserByUsername(defaultUsername);

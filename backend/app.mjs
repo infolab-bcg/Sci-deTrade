@@ -3,12 +3,15 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import serverConfig from './server_config.mjs';
 import { initializeContract, getUser, createUser, mint, burn, getDatasetList, getDataset, createDataset, createOrder, getOrder, handleOrder } from './chaincode.mjs';
-import { initUserTable } from './database/userTable.mjs';
-import { handleRegister, handleLogin, handleGetUser, initializeDefaultUser } from './user.mjs';
+import { initUserTable, deleteUserTable } from './database/userTable.mjs';
+import { handleRegister, handleLogin, handleGetUser, addDemoUser } from './user.mjs';
 
 import { initBlockchainTable } from './database/blockchainTable.mjs';
-import { initDefaultBlockchains } from './blockchainList.mjs';
+import { addDemoBlockchains } from './blockchainList.mjs';
 import { handleGetAllBlockchains } from './blockchainList.mjs';
+
+import { initDatasetTables, deleteDatasetTables, addDemoDatasets } from './dataset.mjs';
+import { handleAddDataset, handleGetPublicDatasets, handleUpdateMaskingDatasetIPFSAddress } from './dataset.mjs';
 
 const app = express();
 
@@ -16,10 +19,14 @@ app.use(cors(serverConfig.corsOptions));
 app.use(bodyParser.json());
 
 // 初始化数据库
+await deleteUserTable();
 await initUserTable();
-await initializeDefaultUser();
+await addDemoUser();
 await initBlockchainTable();
-await initDefaultBlockchains();
+await addDemoBlockchains();
+await deleteDatasetTables();
+await initDatasetTables();
+await addDemoDatasets();
 
 const contract = await initializeContract();
 
@@ -185,6 +192,11 @@ app.post('/register', handleRegister);
 app.post('/login', handleLogin);
 app.get('/user/:id', handleGetUser);
 app.get('/getblockchains', handleGetAllBlockchains);
+
+// 数据集相关路由
+app.post('/addDataset/:blockchainName', handleAddDataset);
+app.get('/getPublicDatasets/:blockchainName', handleGetPublicDatasets);
+app.post('/updateMaskingDatasetIPFSAddress/:blockchainName', handleUpdateMaskingDatasetIPFSAddress);
 
 app.listen(serverConfig.port, () => {
     console.log(`Server is running on port ${serverConfig.port}`);

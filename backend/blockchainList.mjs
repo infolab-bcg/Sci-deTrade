@@ -272,19 +272,13 @@ export const handleDeleteBlockchain = async (req, res) => {
 };
 
 // 添加多个区块链记录
-// name: Physics fullName: 物理学 description: 物理学相关科研数据
-// name: Biology fullName: 生物学 description: 生物学相关科研数据
-// name: Medicine fullName: 临床医学 description: 临床医学相关科研数据
-// name: AI fullName: 人工智能 description: 人工智能相关科研数据
-// name: cyberSecurity fullName: 网络安全 description: 网络安全相关科研数据
-
-export const initDefaultBlockchains = async () => {
+export const addDemoBlockchains = async () => {
     try {
         await createBlockchain('Physics', '物理学', '物理学相关科研数据');
         await createBlockchain('Biology', '生物学', '生物学相关科研数据');
         await createBlockchain('Medicine', '临床医学', '临床医学相关科研数据');
-        await createBlockchain('AI', '人工智能', '人工智能相关科研数据');
-        await createBlockchain('cyberSecurity', '网络安全', '网络安全相关科研数据');
+        await createBlockchain('ArtificialIntelligence', '人工智能', '人工智能相关科研数据');
+        await createBlockchain('CyberSecurity', '网络安全', '网络安全相关科研数据');
     } catch (error) {
         console.error('初始化区块链记录失败:', error);
     }

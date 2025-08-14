@@ -75,7 +75,7 @@ const fetchData = async () => {
 
 // 导航到数据集页面
 const navigateToDataset = (blockchainName) => {
-  router.push(`/publicDataset:${blockchainName}`);
+  router.push(`/publicDataset/${blockchainName}`);
 };
 
 onMounted(() => {

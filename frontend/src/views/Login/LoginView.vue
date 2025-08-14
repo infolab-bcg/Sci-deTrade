@@ -119,8 +119,8 @@ const handleRegister = async () => {
 
 const handleDemoLogin = async () => {
   // 自动填充演示账户信息
-  username.value = 'ustc';
-  password.value = 'ustc@1958';
+  username.value = 'demoUser';
+  password.value = 'demoUser';
   
   // 触发登录请求
   try {

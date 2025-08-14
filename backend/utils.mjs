@@ -15,3 +15,7 @@ export async function hash(str) {
     const hash = hashfunc.digest('hex');
     return hash;
 }
+
+export async function generateIPFSCID() {
+    return "Qm" + await randStr(44);
+}
