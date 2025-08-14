@@ -1,5 +1,6 @@
 import crypto from 'crypto';
-import { createUser as dbCreateUser, findUserByUsername, findUserById } from './database/db.mjs';
+import { createUser as dbCreateUser, findUserByUsername, findUserById } from './database/userTable.mjs';
+import logger from './log.mjs';
 
 // 密码加密函数
 const hashPassword = (password) => {
@@ -59,6 +60,7 @@ export const registerUser = async (username, password) => {
 // 用户登录
 export const loginUser = async (username, password) => {
     try {
+        logger.debug('Login user:', username);
         // 验证输入
         if (!username || !password) {
             throw new Error('用户名和密码不能为空');
@@ -69,13 +71,13 @@ export const loginUser = async (username, password) => {
         if (!user) {
             throw new Error('用户名或密码错误');
         }
-
+        logger.debug('User found:', user);
         // 验证密码
         const isValidPassword = verifyPassword(password, user.password);
         if (!isValidPassword) {
             throw new Error('用户名或密码错误');
         }
-
+        logger.debug('Password verified:', isValidPassword);
         return {
             success: true,
             user: {
@@ -85,6 +87,7 @@ export const loginUser = async (username, password) => {
             }
         };
     } catch (error) {
+        logger.error('Login error:', error);
         return {
             success: false,
             message: error.message
@@ -95,6 +98,7 @@ export const loginUser = async (username, password) => {
 // 根据ID获取用户信息
 export const getUserById = async (id) => {
     try {
+        logger.debug('Get user by id:', id);
         const user = await findUserById(id);
         if (!user) {
             throw new Error('用户不存在');

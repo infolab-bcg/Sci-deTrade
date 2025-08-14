@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import serverConfig from './server_config.js';
 import { initializeContract, getUser, createUser, mint, burn, getDatasetList, getDataset, createDataset, createOrder, getOrder, handleOrder } from './chaincode.mjs';
-import { initDatabase } from './database/db.mjs';
+import { initUserTable } from './database/userTable.mjs';
 import { handleRegister, handleLogin, handleGetUser, initializeDefaultUser } from './user.mjs';
 
 
@@ -13,7 +13,7 @@ app.use(cors(serverConfig.corsOptions));
 app.use(bodyParser.json());
 
 // 初始化数据库
-await initDatabase();
+await initUserTable();
 await initializeDefaultUser();
 
 const contract = await initializeContract();
