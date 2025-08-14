@@ -16,7 +16,7 @@ const dbGet = promisify(db.get.bind(db));
 const dbAll = promisify(db.all.bind(db));
 
 // 初始化区块链表
-export const initBlockchainTable = async () => {
+export async function initBlockchainTable() {
 	try {
 		logger.debug('init blockchain table');
 		await dbRun(`
@@ -35,7 +35,7 @@ export const initBlockchainTable = async () => {
 	}
 };
 // 删除区块链表
-export const deleteBlockchainTable = async () => {
+export async function deleteBlockchainTable() {
 	try {
 		logger.debug('delete blockchain table');
 		await dbRun('DROP TABLE IF EXISTS blockchains');
@@ -47,7 +47,7 @@ export const deleteBlockchainTable = async () => {
 };
 
 // 创建区块链记录
-export const createBlockchain = async (name, fullName, description) => {
+export async function createBlockchain(name, fullName, description) {
 	return new Promise((resolve, reject) => {
 		logger.debug(`creating blockchain: ${name}, ${fullName}, ${description} ...`);
 		const stmt = db.prepare('INSERT INTO blockchains (name, fullName, description) VALUES (?, ?, ?)');
@@ -67,7 +67,7 @@ export const createBlockchain = async (name, fullName, description) => {
 };
 
 // 根据name查找区块链
-export const findBlockchainByName = async (name) => {
+export async function findBlockchainByName(name) {
 	try {
 		logger.debug(`find blockchain by name: ${name} ...`);
 		const row = await dbGet('SELECT * FROM blockchains WHERE name = ?', [name]);
@@ -80,7 +80,7 @@ export const findBlockchainByName = async (name) => {
 };
 
 // 获取所有区块链记录
-export const getAllBlockchains = async () => {
+export async function getAllBlockchains() {
 	try {
 		logger.debug('get all blockchains ...');
 		const rows = await dbAll('SELECT * FROM blockchains ORDER BY created_at DESC');
@@ -93,7 +93,7 @@ export const getAllBlockchains = async () => {
 };
 
 // 更新区块链记录
-export const updateBlockchain = async ( name, fullName, description) => {
+export async function updateBlockchain(name, fullName, description) {
 	return new Promise((resolve, reject) => {
 		logger.debug(`update blockchain: ${name}, ${fullName}, ${description} ...`);
 		const stmt = db.prepare(`
@@ -116,7 +116,7 @@ export const updateBlockchain = async ( name, fullName, description) => {
 };
 
 // 通过name 删除区块链
-export const deleteBlockchainByName = async (name) => {
+export async function deleteBlockchainByName(name) {
 	return new Promise((resolve, reject) => {
 		logger.debug(`delete blockchain by name: ${name} ...`);
 		const stmt = db.prepare('DELETE FROM blockchains WHERE name = ?');
