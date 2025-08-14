@@ -1,6 +1,6 @@
 // server_config.js
-module.exports = {
-	port: 3001,
+export default {
+	port: 3101,
 	corsOptions: {
 		origin: '*',
 		methods: ['GET', 'POST'],

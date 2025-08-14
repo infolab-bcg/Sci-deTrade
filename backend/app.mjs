@@ -1,11 +1,14 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import serverConfig from './server_config.js';
+import serverConfig from './server_config.mjs';
 import { initializeContract, getUser, createUser, mint, burn, getDatasetList, getDataset, createDataset, createOrder, getOrder, handleOrder } from './chaincode.mjs';
 import { initUserTable } from './database/userTable.mjs';
 import { handleRegister, handleLogin, handleGetUser, initializeDefaultUser } from './user.mjs';
 
+import { initBlockchainTable } from './database/blockchainTable.mjs';
+import { initDefaultBlockchains } from './blockchainList.mjs';
+import { handleGetAllBlockchains } from './blockchainList.mjs';
 
 const app = express();
 
@@ -15,6 +18,8 @@ app.use(bodyParser.json());
 // 初始化数据库
 await initUserTable();
 await initializeDefaultUser();
+await initBlockchainTable();
+await initDefaultBlockchains();
 
 const contract = await initializeContract();
 
@@ -179,6 +184,7 @@ app.post('/handleOrder', async (req, res) => {
 app.post('/register', handleRegister);
 app.post('/login', handleLogin);
 app.get('/user/:id', handleGetUser);
+app.get('/getblockchains', handleGetAllBlockchains);
 
 app.listen(serverConfig.port, () => {
     console.log(`Server is running on port ${serverConfig.port}`);

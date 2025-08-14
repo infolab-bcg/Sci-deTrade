@@ -10,7 +10,7 @@ import CreateOrder from "../views/Market/CreateOrder.vue";
 import SellOrder from "../views/Order/SellOrder.vue";
 import BuyOrder from "../views/Order/BuyOrder.vue";
 import Upload from "../views/Data/Upload.vue";
-
+import BlockchainList from "../views/blockchain/BlockchainList.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -23,6 +23,12 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
+    },
+    {
+      path: "/blockchainList",
+      name: "blockchainList",
+      component: BlockchainList,
+      meta: { requiresAuth: true },
     },
     {
       path: "/market",

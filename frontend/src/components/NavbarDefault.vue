@@ -35,35 +35,15 @@
       </button>
       <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
         <ul class="navbar-nav navbar-nav-hover ms-auto">
-          <li class="nav-item dropdown dropdown-hover mx-2">
-            <a role="button" class="nav-link ps-2 d-flex cursor-pointer align-items-center" :class="getTextColor()"
-              id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
+
+          <li class="nav-item mx-2">
+            <RouterLink to="/blockchainList" class="nav-link ps-2 d-flex cursor-pointer align-items-center"
+              :class="getTextColor()">
               <i class="material-icons opacity-9 me-2 text-xl" :class="getTextColor()">format_list_bulleted</i>
               区块链列表
-              <img :src="getArrowColor()" alt="down-arrow" class="dropdown-arrow ms-2 d-lg-block d-none" />
-              <img :src="getArrowColor()" alt="down-arrow" class="dropdown-arrow ms-1 d-lg-none d-block ms-auto" />
-            </a>
-            <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-2 border-radius-xl mt-0 mt-lg-3"
-              aria-labelledby="dropdownMenuPages" style="min-width: 120px; width: 140px;">
-              <div class="row d-none d-lg-block">
-                <div class="col-12 px-3 py-1">
-                  <div class="row">
-                    <div class="text-center">
-                      <RouterLink :to="{ name: 'buy' }" class="dropdown-item border-radius-md">
-                        <span> 物理区块链 </span>
-                      </RouterLink>
-                      <RouterLink :to="{ name: 'sell' }" class="dropdown-item border-radius-md">
-                        <span>化学区块链 </span>
-                      </RouterLink>
-                      <RouterLink :to="{ name: 'sell' }" class="dropdown-item border-radius-md">
-                        <span>生物学区块链 </span>
-                      </RouterLink>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </RouterLink>
           </li>
+
           <li class="nav-item mx-2">
             <RouterLink to="/market" class="nav-link ps-2 d-flex cursor-pointer align-items-center"
               :class="getTextColor()">
