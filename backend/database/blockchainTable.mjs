@@ -47,7 +47,7 @@ export async function deleteBlockchainTable() {
 };
 
 // 创建区块链记录
-export async function createBlockchain(name, fullName, description) {
+export async function addBlockchain(name, fullName, description) {
 	return new Promise((resolve, reject) => {
 		logger.debug(`creating blockchain: ${name}, ${fullName}, ${description} ...`);
 		const stmt = db.prepare('INSERT INTO blockchains (name, fullName, description) VALUES (?, ?, ?)');

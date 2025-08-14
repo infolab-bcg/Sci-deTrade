@@ -47,7 +47,8 @@
                   <div class="text-center">
                     <button type="submit" class="btn btn-success btn-lg w-100 my-2 mb-2">登录</button>
                     <button @click="handleRegister" type="button" class="btn btn-primary btn-lg w-100 my-2">注册</button>
-                    <button @click="handleDemoLogin" type="button" class="btn btn-warning btn-lg w-100 my-2">演示账户登录</button>
+                    <button @click="handleDemoDataOwnerLogin" type="button" class="btn btn-secondary btn-lg w-100 my-2">演示账户登录-数据拥有者</button>
+                    <button @click="handleDemoDataRequesterLogin" type="button" class="btn btn-dark btn-lg w-100 my-2">演示账户登录-数据请求者</button>
                   </div>
                 </form>
               </div>
@@ -117,10 +118,10 @@ const handleRegister = async () => {
   }
 };
 
-const handleDemoLogin = async () => {
-  // 自动填充演示账户信息
-  username.value = 'demoUser';
-  password.value = 'demoUser';
+const handleDemoDataOwnerLogin = async () => {
+  // 自动填充数据拥有者演示账户信息
+  username.value = 'demoDataOwner';
+  password.value = 'demoDataOwner';
   
   // 触发登录请求
   try {
@@ -133,11 +134,35 @@ const handleDemoLogin = async () => {
       authStore.login(response.data.user);
       router.push({ name: 'home' });
     } else {
-      alert('演示账户登录失败：' + response.data.message);
+      alert('数据拥有者演示账户登录失败：' + response.data.message);
     }
   } catch (error) {
-    console.error('演示账户登录错误:', error);
-    alert('演示账户登录失败，请检查网络连接');
+    console.error('数据拥有者演示账户登录错误:', error);
+    alert('数据拥有者演示账户登录失败，请检查网络连接');
+  }
+};
+
+const handleDemoDataRequesterLogin = async () => {
+  // 自动填充数据请求者演示账户信息
+  username.value = 'demoDataRequester';
+  password.value = 'demoDataRequester';
+  
+  // 触发登录请求
+  try {
+    const response = await axios.post('/login', {
+      username: username.value,
+      password: password.value
+    });
+    
+    if (response.data.success) {
+      authStore.login(response.data.user);
+      router.push({ name: 'home' });
+    } else {
+      alert('数据请求者演示账户登录失败：' + response.data.message);
+    }
+  } catch (error) {
+    console.error('数据请求者演示账户登录错误:', error);
+    alert('数据请求者演示账户登录失败，请检查网络连接');
   }
 };
 </script>

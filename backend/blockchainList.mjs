@@ -1,5 +1,5 @@
 import {
-    createBlockchain as dbCreateBlockchain,
+    addBlockchain as dbCreateBlockchain,
     findBlockchainByName,
     getAllBlockchains as dbGetAllBlockchains,
     updateBlockchain as dbUpdateBlockchain,
@@ -7,7 +7,7 @@ import {
 import logger from './log.mjs';
 
 // 创建区块链记录
-export const createBlockchain = async (name, fullName, description) => {
+export const addBlockchain = async (name, fullName, description) => {
     try {
         // 检查区块链名称是否已存在
         const existingBlockchain = await findBlockchainByName(name);
@@ -141,7 +141,7 @@ export const updateBlockchain = async (name, fullName, description) => {
 export const handleCreateBlockchain = async (req, res) => {
     try {
         const { name, fullName, description } = req.body;
-        const result = await createBlockchain(name, fullName, description);
+        const result = await addBlockchain(name, fullName, description);
 
         if (result.success) {
             res.json({
@@ -274,11 +274,11 @@ export const handleDeleteBlockchain = async (req, res) => {
 // 添加多个区块链记录
 export const addDemoBlockchains = async () => {
     try {
-        await createBlockchain('Physics', '物理学', '物理学相关科研数据');
-        await createBlockchain('Biology', '生物学', '生物学相关科研数据');
-        await createBlockchain('Medicine', '临床医学', '临床医学相关科研数据');
-        await createBlockchain('ArtificialIntelligence', '人工智能', '人工智能相关科研数据');
-        await createBlockchain('CyberSecurity', '网络安全', '网络安全相关科研数据');
+        await addBlockchain('Physics', '物理学', '物理学相关科研数据');
+        await addBlockchain('Biology', '生物学', '生物学相关科研数据');
+        await addBlockchain('Medicine', '临床医学', '临床医学相关科研数据');
+        await addBlockchain('ArtificialIntelligence', '人工智能', '人工智能相关科研数据');
+        await addBlockchain('CyberSecurity', '网络安全', '网络安全相关科研数据');
     } catch (error) {
         console.error('初始化区块链记录失败:', error);
     }

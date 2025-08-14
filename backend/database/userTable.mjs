@@ -58,14 +58,18 @@ export async function createUser(username, password) {
 };
 
 // 根据用户名查找用户
-export async function findUserByUsername(username) {
+export async function getUserByUsername(username) {
 	try {
 		logger.debug(`查找用户: ${username}`);
 		const row = await dbGet('SELECT * FROM users WHERE username = ?', [username]);
-		logger.debug(`查找用户成功: ${username}`);
+		if (row) {
+			logger.debug(`查找用户成功: ${username} ${JSON.stringify(row)}`);
+		} else {
+			logger.debug(`用户不存在: ${username}`);
+		}
 		return row;
 	} catch (err) {
-		logger.error(`查找用户失败: ${username}`);
+		logger.error(`查找用户失败: ${username}`, err);
 		throw err;
 	}
 };

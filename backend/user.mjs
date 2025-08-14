@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { createUser as dbCreateUser, findUserByUsername } from './database/userTable.mjs';
+import { createUser as dbCreateUser, getUserByUsername } from './database/userTable.mjs';
 import logger from './log.mjs';
 
 // 密码加密函数
@@ -20,7 +20,7 @@ const verifyPassword = (password, hashedPassword) => {
 export async function registerUser(username, password) {
     try {
         // 检查用户名是否已存在
-        const existingUser = await findUserByUsername(username);
+        const existingUser = await getUserByUsername(username);
         if (existingUser) {
             throw new Error('用户名已存在');
         }
@@ -67,7 +67,7 @@ export async function loginUser(username, password) {
         }
 
         // 查找用户
-        const user = await findUserByUsername(username);
+        const user = await getUserByUsername(username);
         if (!user) {
             throw new Error('用户名或密码错误');
         }
@@ -179,34 +179,25 @@ export async function handleGetUser(req, res) {
 // 初始化默认用户
 export async function addDemoUser() {
     try {
-        const defaultUsername = 'demoUser';
-        const defaultPassword = 'demoUser';
-        logger.debug(`初始化默认用户: ${defaultUsername}`);
-        // 检查默认用户是否已存在
-        const existingUser = await findUserByUsername(defaultUsername);
-        if (existingUser) {
-            logger.debug('默认用户已存在，跳过创建');
-            return {
-                success: true,
-                message: '默认用户已存在'
-            };
-        }
-        
-        // 创建默认用户
-        const result = await registerUser(defaultUsername, defaultPassword);
-        if (result.success) {
-            logger.debug('默认用户创建成功:', defaultUsername);
-            return {
-                success: true,
-                message: '默认用户创建成功',
-                user: result.user
-            };
-        } else {
-            logger.error('默认用户创建失败:', result.message);
-            return result;
-        }
+        logger.debug('初始化演示账户');
+
+        // 创建数据拥有者演示账户
+        const dataOwnerUsername = 'demoDataOwner';
+        const dataOwnerPassword = 'demoDataOwner';
+
+        await registerUser(dataOwnerUsername, dataOwnerPassword);
+
+        // 创建数据请求者演示账户
+        const dataRequesterUsername = 'demoDataRequester';
+        const dataRequesterPassword = 'demoDataRequester';
+
+        await registerUser(dataRequesterUsername, dataRequesterPassword);
+        return {
+            success: true,
+            message: '演示账户初始化完成'
+        };
     } catch (error) {
-        logger.error('初始化默认用户时发生错误:', error);
+        logger.error('初始化演示账户时发生错误:', error);
         return {
             success: false,
             message: error.message
