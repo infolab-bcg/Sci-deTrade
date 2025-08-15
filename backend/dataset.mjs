@@ -37,7 +37,8 @@ export async function deleteDatasetTables() {
 
 export async function handleAddDataset(req, res) {
     try {
-        const { blockchainName, name, fullName, description, owner, isPublic = false, canMaskingShare = false, canCustomMaskingTrade = false, canDataService = false, maskingDatasetIPFSAddress = '' } = req.body;
+        const { blockchainName } = req.params;
+        const { name, fullName, description, owner, isPublic = false, canMaskingShare = false, canCustomMaskingTrade = false, canDataService = false, maskingDatasetIPFSAddress = '' } = req.body;
         await addDataset(blockchainName, name, fullName, description, owner, isPublic, canMaskingShare, canCustomMaskingTrade, canDataService, maskingDatasetIPFSAddress);
         logger.debug(`创建数据集 for blockchain: ${blockchainName} success`);
         res.json({ success: true, message: '数据集创建成功' })

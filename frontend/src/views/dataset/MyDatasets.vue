@@ -35,7 +35,7 @@
         </div>
         
         <div class="text-center mb-5">
-          <button class="btn btn-upload btn-lg px-5 py-3 shadow-lg" @click="router.push('/upload')">
+          <button class="btn btn-upload btn-lg px-5 py-3 shadow-lg" @click="router.push('/adddataset')">
             <i class="fas fa-cloud-upload-alt me-3"></i>
             <span class="fw-bold">新建数据集</span>
           </button>

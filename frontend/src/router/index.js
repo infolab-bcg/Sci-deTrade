@@ -9,7 +9,7 @@ import FinanceView from "../views/Finance/FinanceView.vue";
 import CreateOrder from "../views/Market/CreateOrder.vue";
 import SellOrder from "../views/Order/SellOrder.vue";
 import BuyOrder from "../views/Order/BuyOrder.vue";
-import Upload from "../views/Data/Upload.vue";
+import AddDataset from "../views/dataset/AddDataset.vue";
 import BlockchainList from "../views/blockchain/BlockchainList.vue";
 import MyDatasets from "../views/dataset/MyDatasets.vue";
 import PublicDatasets from "../views/dataset/PublicDatasets.vue";
@@ -88,9 +88,9 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/upload",
-      name: "upload",
-      component: Upload,
+      path: "/adddataset",
+      name: "adddataset",
+      component: AddDataset,
       meta: { requiresAuth: true },
     },
   ],

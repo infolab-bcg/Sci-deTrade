@@ -53,7 +53,8 @@ export async function deleteDatasetTable(blockchainName) {
 
 export async function addDataset(blockchainName, name, fullName, description, owner, isPublic = false, canMaskingShare = false, canCustomMaskingTrade = false, canDataService = false, maskingDatasetIPFSAddress = '') {
 	try {
-		logger.debug(`create dataset for blockchain: ${blockchainName}`);
+		logger.debug(`creating dataset for blockchain: ${blockchainName}...`);
+		logger.debug(`params: ${JSON.stringify({ blockchainName, name, fullName, description, owner, isPublic, canMaskingShare, canCustomMaskingTrade, canDataService, maskingDatasetIPFSAddress }, null, 2)}`)
 		const stmt = db.prepare(`INSERT INTO datasets_${blockchainName} (name, fullName, description, owner, isPublic, canMaskingShare, canCustomMaskingTrade, canDataService, maskingDatasetIPFSAddress) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`);
 		stmt.run([name, fullName, description, owner, isPublic, canMaskingShare, canCustomMaskingTrade, canDataService, maskingDatasetIPFSAddress]);
 		logger.debug(`create dataset for blockchain: ${blockchainName} success`);

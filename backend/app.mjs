@@ -22,6 +22,8 @@ app.use(bodyParser.json());
 await deleteUserTable();
 await initUserTable();
 await addDemoUser();
+
+// 初始化区块链和数据集
 await initBlockchainTable();
 await addDemoBlockchains();
 await deleteDatasetTables();
