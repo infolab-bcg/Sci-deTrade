@@ -61,7 +61,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
 import { useAuthStore } from '../../stores/auth';
 import { useRouter } from 'vue-router';
 import NavbarDefault from "../../components/NavbarDefault.vue";
@@ -71,6 +71,7 @@ import axios from '../../api/axios';
 
 const authStore = useAuthStore();
 const router = useRouter();
+const $notify = inject('$notify');
 
 const username = ref('');
 const password = ref('');
@@ -87,13 +88,14 @@ const handleLogin = async () => {
     
     if (response.data.success) {
       authStore.login(response.data.user);
+      $notify.success('登录成功！');
       router.push({ name: 'home' });
     } else {
-      alert('登录失败：' + response.data.message);
+      $notify.error('登录失败：' + response.data.message);
     }
   } catch (error) {
     console.error('登录错误:', error);
-    alert('登录失败，请检查网络连接');
+    $notify.error('登录失败，请检查网络连接');
   }
 };
 
@@ -105,16 +107,16 @@ const handleRegister = async () => {
     });
     
     if (response.data.success) {
-      alert('注册成功！请登录');
+      $notify.success('注册成功！请登录');
       // 清空表单
       username.value = '';
       password.value = '';
     } else {
-      alert('注册失败：' + response.data.message);
+      $notify.error('注册失败：' + response.data.message);
     }
   } catch (error) {
     console.error('注册错误:', error);
-    alert('注册失败，请检查网络连接');
+    $notify.error('注册失败，请检查网络连接');
   }
 };
 
@@ -132,13 +134,14 @@ const handleDemoDataOwnerLogin = async () => {
     
     if (response.data.success) {
       authStore.login(response.data.user);
+      $notify.success('数据拥有者演示账户登录成功！');
       router.push({ name: 'home' });
     } else {
-      alert('数据拥有者演示账户登录失败：' + response.data.message);
+      $notify.error('数据拥有者演示账户登录失败：' + response.data.message);
     }
   } catch (error) {
     console.error('数据拥有者演示账户登录错误:', error);
-    alert('数据拥有者演示账户登录失败，请检查网络连接');
+    $notify.error('数据拥有者演示账户登录失败，请检查网络连接');
   }
 };
 
@@ -156,13 +159,14 @@ const handleDemoDataRequesterLogin = async () => {
     
     if (response.data.success) {
       authStore.login(response.data.user);
+      $notify.success('数据请求者演示账户登录成功！');
       router.push({ name: 'home' });
     } else {
-      alert('数据请求者演示账户登录失败：' + response.data.message);
+      $notify.error('数据请求者演示账户登录失败：' + response.data.message);
     }
   } catch (error) {
     console.error('数据请求者演示账户登录错误:', error);
-    alert('数据请求者演示账户登录失败，请检查网络连接');
+    $notify.error('数据请求者演示账户登录失败，请检查网络连接');
   }
 };
 </script>

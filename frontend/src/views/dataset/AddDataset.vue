@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, inject } from "vue";
 import { useRoute } from 'vue-router';
 import axios from "@/api/axios";
 import NavbarDefault from "../../components/NavbarDefault.vue";
@@ -13,6 +13,7 @@ import { useAuthStore } from "@/stores/auth"; // 引入 store
 import CryptoJS from 'crypto-js';
 
 const store = useAuthStore();
+const $notify = inject('$notify');
 const userName = ref('');
 const route = useRoute();
 const error = ref('');
@@ -57,7 +58,7 @@ const handleFileUpload = async () => {
       console.log('数据集名称已更新为:', nameWithoutExtension);
     } catch (error) {
       console.error('计算文件hash失败:', error);
-      alert('计算文件hash失败，请重试');
+      $notify.error('计算文件hash失败，请重试');
     }
   }
 };
@@ -70,7 +71,7 @@ const fetchBlockchains = async () => {
     console.log('获取区块链列表成功:', blockchains.value);
   } catch (error) {
     console.error('获取区块链列表失败:', error);
-    alert('获取区块链列表失败，请刷新页面重试');
+    $notify.error('获取区块链列表失败，请刷新页面重试');
   }
 };
 
@@ -112,19 +113,19 @@ const generateTestCase = () => {
 const uploadDataset = async () => {
   // 验证必填字段
   if (!dataset.value.name) {
-    alert('请输入数据集名称');
+    $notify.warning('请输入数据集名称');
     return;
   }
   if (!dataset.value.description) {
-    alert('请输入数据集描述');
+    $notify.warning('请输入数据集描述');
     return;
   }
   if (!dataset.value.hash) {
-    alert('请先选择文件以计算Hash');
+    $notify.warning('请先选择文件以计算Hash');
     return;
   }
   if (!selectedBlockchain.value) {
-    alert('请选择要存证的区块链');
+    $notify.warning('请选择要存证的区块链');
     return;
   }
 
@@ -148,7 +149,7 @@ const uploadDataset = async () => {
     });
 
     if (response.data.success) {
-      alert('数据集存证成功！');
+      $notify.success('数据集存证成功！');
       // 重置表单
       dataset.value = {
         name: '',
@@ -163,11 +164,11 @@ const uploadDataset = async () => {
         fileInput.value.value = '';
       }
     } else {
-      alert('数据集存证失败: ' + (response.data.message || '未知错误'));
+      $notify.error('数据集存证失败: ' + (response.data.message || '未知错误'));
     }
   } catch (error) {
     console.error('上传数据集失败:', error);
-    alert('上传数据集失败: ' + (error.response?.data?.message || error.message));
+    $notify.error('上传数据集失败: ' + (error.response?.data?.message || error.message));
   }
 };
 
