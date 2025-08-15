@@ -128,10 +128,54 @@
                   ></textarea>
                 </div>
 
-                <!-- 哈希信息（只读） -->
+                <!-- 哈希信息 -->
                 <div class="mb-4">
-                  <strong><i class="fas fa-fingerprint me-2 text-primary"></i>哈希：</strong>
-                  <p class="text-muted mt-2 font-monospace">{{ dataset.hash || '暂无哈希' }}</p>
+                  <label for="hash" class="form-label">
+                    <strong><i class="fas fa-fingerprint me-2 text-primary"></i>哈希</strong>
+                  </label>
+                  <div class="input-group">
+                    <input 
+                      id="hash"
+                      v-model="editForm.hash" 
+                      type="text" 
+                      class="form-control font-monospace" 
+                      placeholder="请输入数据集哈希值"
+                    />
+                    <button 
+                      class="btn btn-primary" 
+                      type="button" 
+                      @click="updateDatasetHash"
+                      :disabled="updating"
+                    >
+                      <i class="fas fa-sync me-2"></i>
+                      {{ updating ? '更新中...' : '更新哈希' }}
+                    </button>
+                  </div>
+                </div>
+
+                <!-- IPFS地址 -->
+                <div class="mb-4">
+                  <label for="ipfsAddress" class="form-label">
+                    <strong><i class="fas fa-globe me-2 text-primary"></i>脱敏数据集IPFS地址</strong>
+                  </label>
+                  <div class="input-group">
+                    <input 
+                      id="ipfsAddress"
+                      v-model="editForm.maskingDatasetIPFSAddress" 
+                      type="text" 
+                      class="form-control font-monospace" 
+                      placeholder="请输入脱敏数据集IPFS地址"
+                    />
+                    <button 
+                      class="btn btn-success" 
+                      type="button" 
+                      @click="updateMaskingDatasetIPFSAddress"
+                      :disabled="updating"
+                    >
+                      <i class="fas fa-cloud-upload-alt me-2"></i>
+                      {{ updating ? '更新中...' : '更新IPFS地址' }}
+                    </button>
+                  </div>
                 </div>
 
               </div>
@@ -295,7 +339,9 @@ const functionUpdating = ref(false);
 // 编辑表单
 const editForm = ref({
   fullName: '',
-  description: ''
+  description: '',
+  hash: '',
+  maskingDatasetIPFSAddress: ''
 });
 
 // 获取数据集详情
@@ -310,6 +356,8 @@ const fetchDatasetDetails = async () => {
       // 初始化编辑表单
       editForm.value.fullName = dataset.value.fullName || '';
       editForm.value.description = dataset.value.description || '';
+      editForm.value.hash = dataset.value.hash || '';
+      editForm.value.maskingDatasetIPFSAddress = dataset.value.maskingDatasetIPFSAddress || '';
     } else {
       error.value = response.data.message || '数据集获取失败';
     }
@@ -349,6 +397,8 @@ const updateDatasetInfo = async () => {
         // 同步更新编辑表单
         editForm.value.fullName = dataset.value.fullName || '';
         editForm.value.description = dataset.value.description || '';
+        editForm.value.hash = dataset.value.hash || '';
+        editForm.value.maskingDatasetIPFSAddress = dataset.value.maskingDatasetIPFSAddress || '';
       }
       $notify.success('数据集信息更新成功');
       console.log(`更新后的数据集: ${JSON.stringify(response.data.data, null, 2)}`);
@@ -512,6 +562,74 @@ const setToPrivate = async () => {
     } finally {
       functionUpdating.value = false;
     }
+  }
+};
+
+// 更新数据集哈希
+const updateDatasetHash = async () => {
+  if (!editForm.value.hash.trim()) {
+    alert('请输入哈希值');
+    return;
+  }
+
+  updating.value = true;
+  
+  try {
+    const response = await axios.post(`/updateDatasetHash/${blockchainName.value}/${datasetName.value}`, {
+      hash: editForm.value.hash
+    });
+    
+    if (response.data.success) {
+      // 使用后端返回的更新后数据
+      if (response.data.data) {
+        dataset.value = { ...dataset.value, ...response.data.data };
+        // 同步更新编辑表单
+        editForm.value.hash = dataset.value.hash || '';
+      }
+      $notify.success('数据集哈希更新成功');
+      console.log(`更新后的数据集: ${JSON.stringify(response.data.data, null, 2)}`);
+    } else {
+      $notify.error('数据集哈希更新失败：' + response.data.message);
+    }
+  } catch (err) {
+    console.error('更新数据集哈希失败', err);
+    alert('网络错误，请稍后重试');
+  } finally {
+    updating.value = false;
+  }
+};
+
+// 更新脱敏数据集IPFS地址
+const updateMaskingDatasetIPFSAddress = async () => {
+  if (!editForm.value.maskingDatasetIPFSAddress.trim()) {
+    alert('请输入IPFS地址');
+    return;
+  }
+
+  updating.value = true;
+  
+  try {
+    const response = await axios.post(`/updateMaskingDatasetIPFSAddress/${blockchainName.value}/${datasetName.value}`, {
+      maskingDatasetIPFSAddress: editForm.value.maskingDatasetIPFSAddress
+    });
+    
+    if (response.data.success) {
+      // 使用后端返回的更新后数据
+      if (response.data.data) {
+        dataset.value = { ...dataset.value, ...response.data.data };
+        // 同步更新编辑表单
+        editForm.value.maskingDatasetIPFSAddress = dataset.value.maskingDatasetIPFSAddress || '';
+      }
+      $notify.success('脱敏数据集IPFS地址更新成功');
+      console.log(`更新后的数据集: ${JSON.stringify(response.data.data, null, 2)}`);
+    } else {
+      $notify.error('脱敏数据集IPFS地址更新失败：' + response.data.message);
+    }
+  } catch (err) {
+    console.error('更新脱敏数据集IPFS地址失败', err);
+    alert('网络错误，请稍后重试');
+  } finally {
+    updating.value = false;
   }
 };
 

@@ -28,6 +28,7 @@ export async function initDatasetTable(blockchainName) {
 				canMaskingShare BOOLEAN DEFAULT FALSE,
 				canCustomMaskingTrade BOOLEAN DEFAULT FALSE,
 				canDataService BOOLEAN DEFAULT FALSE,
+				hash TEXT DEFAULT '',
                 maskingDatasetIPFSAddress TEXT DEFAULT '',
 				created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 				updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -51,12 +52,12 @@ export async function deleteDatasetTable(blockchainName) {
 	}
 }
 
-export async function addDataset(blockchainName, name, fullName, description, owner, isPublic = false, canMaskingShare = false, canCustomMaskingTrade = false, canDataService = false, maskingDatasetIPFSAddress = '') {
+export async function addDataset(blockchainName, name, fullName, description, owner, isPublic = false, canMaskingShare = false, canCustomMaskingTrade = false, canDataService = false, hash = '', maskingDatasetIPFSAddress = '') {
 	try {
 		logger.debug(`creating dataset for blockchain: ${blockchainName}...`);
-		logger.debug(`params: ${JSON.stringify({ blockchainName, name, fullName, description, owner, isPublic, canMaskingShare, canCustomMaskingTrade, canDataService, maskingDatasetIPFSAddress }, null, 2)}`)
-		const stmt = db.prepare(`INSERT INTO datasets_${blockchainName} (name, fullName, description, owner, isPublic, canMaskingShare, canCustomMaskingTrade, canDataService, maskingDatasetIPFSAddress) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`);
-		stmt.run([name, fullName, description, owner, isPublic, canMaskingShare, canCustomMaskingTrade, canDataService, maskingDatasetIPFSAddress]);
+		logger.debug(`params: ${JSON.stringify({ blockchainName, name, fullName, description, owner, isPublic, canMaskingShare, canCustomMaskingTrade, canDataService, hash, maskingDatasetIPFSAddress }, null, 2)}`)
+		const stmt = db.prepare(`INSERT INTO datasets_${blockchainName} (name, fullName, description, owner, isPublic, canMaskingShare, canCustomMaskingTrade, canDataService, hash, maskingDatasetIPFSAddress) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+		stmt.run([name, fullName, description, owner, isPublic, canMaskingShare, canCustomMaskingTrade, canDataService, hash, maskingDatasetIPFSAddress]);
 		logger.debug(`create dataset for blockchain: ${blockchainName} success`);
 		return true;
 	} catch (err) {
@@ -125,6 +126,20 @@ export async function updateDatasetPublicLevel(blockchainName, name, isPublic, c
 		return row;
 	} catch (err) {
 		logger.error(`update blockchain: ${blockchainName} dataset: ${name} public level failed: ${err}`);
+		throw err;
+	}
+}
+
+export async function updateDatasetHash(blockchainName, name, hash) {
+	try {
+		logger.debug(`update dataset hash for blockchain: ${blockchainName}`);	
+		await dbRun(`UPDATE datasets_${blockchainName} SET hash = ? WHERE name = ?`, [hash, name]);
+		logger.debug(`update dataset hash for blockchain: ${blockchainName} success`);
+		const row = await dbGet(`SELECT * FROM datasets_${blockchainName} WHERE name = ?`, [name]);
+		logger.debug(`updated dataset: ${JSON.stringify(row, null, 2)}`);
+		return row;
+	} catch (err) {
+		logger.error(`update dataset hash for blockchain: ${blockchainName} failed: ${err}`);
 		throw err;
 	}
 }

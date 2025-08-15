@@ -11,7 +11,7 @@ import { addDemoBlockchains } from './blockchainList.mjs';
 import { handleGetAllBlockchains } from './blockchainList.mjs';
 
 import { initDatasetTables, deleteDatasetTables, addDemoDatasets } from './dataset.mjs';
-import { handleAddDataset, handleGetPublicDatasets, handleUpdateMaskingDatasetIPFSAddress, handleGetDatasetsByUsername, handleGetDatasetByDatasetName, handleUpdateDatasetInfo, handleUpdateDatasetPublicLevel} from './dataset.mjs';
+import { handleAddDataset, handleGetPublicDatasets, handleUpdateMaskingDatasetIPFSAddress, handleGetDatasetsByUsername, handleGetDatasetByDatasetName, handleUpdateDatasetInfo, handleUpdateDatasetPublicLevel, handleUpdateDatasetHash} from './dataset.mjs';
 
 const app = express();
 
@@ -39,12 +39,12 @@ app.get('/getblockchains', handleGetAllBlockchains);
 // 数据集相关路由
 app.post('/addDataset/:blockchainName', handleAddDataset);
 app.get('/getPublicDatasets/:blockchainName', handleGetPublicDatasets);
-app.post('/updateMaskingDatasetIPFSAddress/:blockchainName', handleUpdateMaskingDatasetIPFSAddress);
 app.get('/getDatasetsByUsername/:name', handleGetDatasetsByUsername);
 app.get('/getDatasetByDatasetName/:blockchainName/:name', handleGetDatasetByDatasetName);
 app.post('/updateDatasetInfo/:blockchainName/:name', handleUpdateDatasetInfo);
 app.post('/updateDatasetPublicLevel/:blockchainName/:name', handleUpdateDatasetPublicLevel);
-
+app.post('/updateDatasetHash/:blockchainName/:name', handleUpdateDatasetHash);
+app.post('/updateMaskingDatasetIPFSAddress/:blockchainName/:name', handleUpdateMaskingDatasetIPFSAddress);
 
 const contract = await initializeContract();
 
