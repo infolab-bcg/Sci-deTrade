@@ -106,7 +106,9 @@ export async function updateDatasetInfo(blockchainName, name, fullName, descript
 		logger.debug(`update dataset for blockchain: ${blockchainName}`);
 		await dbRun(`UPDATE datasets_${blockchainName} SET fullName = ?, description = ? WHERE name = ?`, [fullName, description, name]);
 		logger.debug(`update dataset for blockchain: ${blockchainName} success`);
-		return true;
+		const row = await dbGet(`SELECT * FROM datasets_${blockchainName} WHERE name = ?`, [name]);
+		logger.debug(`updated dataset: ${JSON.stringify(row, null, 2)}`);
+		return row;
 	} catch (err) {
 		logger.error(`update dataset for blockchain: ${blockchainName} failed: ${err}`);
 		throw err;
@@ -116,9 +118,11 @@ export async function updateDatasetInfo(blockchainName, name, fullName, descript
 export async function updateDatasetPublicLevel(blockchainName, name, isPublic, canMaskingShare = false, canCustomMaskingTrade = false, canDataService = false) {
 	try {
 		logger.debug(`update blockchain: ${blockchainName} dataset: ${name} public level to public: ${isPublic}, masking share: ${canMaskingShare}, custom masking trade: ${canCustomMaskingTrade}, data service: ${canDataService}`);
-		await dbRun(`UPDATE datasets_${blockchainName} SET isPublic = ? canMaskingShare = ? canCustomMaskingTrade = ? canDataService = ? WHERE name = ?`, [isPublic, canMaskingShare, canCustomMaskingTrade, canDataService, name]);
+		await dbRun(`UPDATE datasets_${blockchainName} SET isPublic = ?, canMaskingShare = ?, canCustomMaskingTrade = ?, canDataService = ? WHERE name = ?`, [isPublic, canMaskingShare, canCustomMaskingTrade, canDataService, name]);
 		logger.debug(`update blockchain: ${blockchainName} dataset: ${name} public level success`);
-		return true;
+		const row = await dbGet(`SELECT * FROM datasets_${blockchainName} WHERE name = ?`, [name]);
+		logger.debug(`updated dataset: ${JSON.stringify(row, null, 2)}`);
+		return row;
 	} catch (err) {
 		logger.error(`update blockchain: ${blockchainName} dataset: ${name} public level failed: ${err}`);
 		throw err;
@@ -127,24 +131,26 @@ export async function updateDatasetPublicLevel(blockchainName, name, isPublic, c
 
 export async function updateMaskingDatasetIPFSAddress(blockchainName, name, maskingDatasetIPFSAddress) {
 	try {
-		logger.debug(`update masking dataset ipfs address for blockchain: ${blockchainName}`);
+		logger.debug(`update masking dataset ipfs address for blockchain: ${blockchainName}`);	
 		await dbRun(`UPDATE datasets_${blockchainName} SET maskingDatasetIPFSAddress = ? WHERE name = ?`, [maskingDatasetIPFSAddress, name]);
 		logger.debug(`update masking dataset ipfs address for blockchain: ${blockchainName} success`);
-		return true;
+		const row = await dbGet(`SELECT * FROM datasets_${blockchainName} WHERE name = ?`, [name]);
+		logger.debug(`updated dataset: ${JSON.stringify(row, null, 2)}`);
+		return row;
 	} catch (err) {
 		logger.error(`update masking dataset ipfs address for blockchain: ${blockchainName} failed: ${err}`);
 		throw err;
 	}
 }
 
-export async function getDatasetByName(blockchainName, name) {
+export async function getDatasetByDatasetName(blockchainName, name) {
 	try {
-		logger.debug(`get dataset by name for blockchain: ${blockchainName}`);
+		logger.debug(`get dataset by dataset name for blockchain: ${blockchainName}`);
 		const row = await dbGet(`SELECT * FROM datasets_${blockchainName} WHERE name = ?`, [name]);
-		logger.debug(`get dataset by name for blockchain: ${blockchainName} success`);
+		logger.debug(`get dataset by dataset name for blockchain: ${blockchainName} success`);
 		return row;
 	} catch (err) {
-		logger.error(`get dataset by name for blockchain: ${blockchainName} failed: ${err}`);
+		logger.error(`get dataset by dataset name for blockchain: ${blockchainName} failed: ${err}`);
 		throw err;
 	}
 }

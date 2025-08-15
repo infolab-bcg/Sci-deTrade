@@ -13,6 +13,8 @@ import AddDataset from "../views/dataset/AddDataset.vue";
 import BlockchainList from "../views/blockchain/BlockchainList.vue";
 import MyDatasets from "../views/dataset/MyDatasets.vue";
 import PublicDatasets from "../views/dataset/PublicDatasets.vue";
+import DatasetView from "../views/dataset/DatasetView.vue";
+import DatasetEdit from "../views/dataset/DatasetEdit.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -42,6 +44,18 @@ const router = createRouter({
       path: "/mydatasets/:name",
       name: "MyDataset",
       component: MyDatasets,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/dataset/:blockchainName/:name",
+      name: "Dataset",
+      component: DatasetView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/dataset/edit/:blockchainName/:name",
+      name: "DatasetEdit",
+      component: DatasetEdit,
       meta: { requiresAuth: true },
     },
     {

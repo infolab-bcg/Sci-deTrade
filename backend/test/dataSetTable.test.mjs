@@ -6,13 +6,13 @@ import logger from '../log.mjs';
 await deleteDatasetTable('Physics');
 await deleteDatasetTable('Biology');
 await deleteDatasetTable('Medicine');
-await deleteDatasetTable('AI');
+await deleteDatasetTable('ArtificialIntelligence');
 await deleteDatasetTable('CyberSecurity');
 
 await initDatasetTable('Physics');
 await initDatasetTable('Biology');
 await initDatasetTable('Medicine');
-await initDatasetTable('AI');
+await initDatasetTable('ArtificialIntelligence');
 await initDatasetTable('CyberSecurity');
 
 await addDemoDatasets();
@@ -26,7 +26,7 @@ logger.debug(`BiologyPublicDatasets: ${JSON.stringify(BiologyPublicDatasets, nul
 const MedicinePublicDatasets = await getPublicDatasets('Medicine');
 logger.debug(`MedicinePublicDatasets: ${JSON.stringify(MedicinePublicDatasets, null, 2)}`);
 
-const AIPublicDatasets = await getPublicDatasets('AI');
+const AIPublicDatasets = await getPublicDatasets('ArtificialIntelligence');
 logger.debug(`AIPublicDatasets: ${JSON.stringify(AIPublicDatasets, null, 2)}`);
 
 const CyberSecurityPublicDatasets = await getPublicDatasets('CyberSecurity');

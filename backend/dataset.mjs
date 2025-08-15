@@ -1,5 +1,5 @@
 import { getAllBlockchains } from './blockchainList.mjs';
-import { initDatasetTable, deleteDatasetTable, addDataset, deleteDataset, getAllDatasets, getPublicDatasets, updateMaskingDatasetIPFSAddress, getDatasetsByOwner } from './database/datasetTable.mjs';
+import { initDatasetTable, deleteDatasetTable, addDataset, deleteDataset, getAllDatasets, getPublicDatasets, updateMaskingDatasetIPFSAddress, getDatasetsByOwner, getDatasetByDatasetName, updateDatasetInfo, updateDatasetPublicLevel } from './database/datasetTable.mjs';
 import logger from './log.mjs';
 import { generateIPFSCID } from './utils.mjs';
 
@@ -105,7 +105,7 @@ export async function handleGetDatasetByOwner(req, res) {
     }
 }
 
-export async function handleGetDatasetsByName(req, res) {
+export async function handleGetDatasetsByUsername(req, res) {
     try {
         const { name } = req.params;
         // 遍历所有dataset表
@@ -127,6 +127,38 @@ export async function handleGetDatasetsByName(req, res) {
     }
 }
 
+export async function handleGetDatasetByDatasetName(req, res) {
+    try {
+        const { blockchainName, name } = req.params;
+        const result = await getDatasetByDatasetName(blockchainName, name);
+        res.json({ success: true, message: '数据集获取成功', data: result })
+    } catch (error) {
+        res.json({ success: false, message: '数据集获取失败', error });
+    }
+}
+
+export async function handleUpdateDatasetInfo(req, res) {
+    try {
+        const { blockchainName, name } = req.params;
+        const { fullName, description } = req.body;
+        const updatedDataset = await updateDatasetInfo(blockchainName, name, fullName, description);
+        res.json({ success: true, message: '数据集信息更新成功', data: updatedDataset })
+    } catch (error) {
+        res.json({ success: false, message: '数据集信息更新失败', error });
+    }
+}
+
+export async function handleUpdateDatasetPublicLevel(req, res) {
+    try {
+        const { blockchainName, name } = req.params;
+        const { isPublic, canMaskingShare, canCustomMaskingTrade, canDataService } = req.body;
+        logger.debug(`handleUpdateDatasetPublicLevel: ${JSON.stringify({ blockchainName, name, isPublic, canMaskingShare, canCustomMaskingTrade, canDataService }, null, 2)}`)
+        const updatedDataset = await updateDatasetPublicLevel(blockchainName, name, isPublic, canMaskingShare, canCustomMaskingTrade, canDataService);
+        res.json({ success: true, message: '数据集公开级别更新成功', data: updatedDataset })
+    } catch (error) {
+        res.json({ success: false, message: '数据集公开级别更新失败', error });
+    }
+}
 
 export async function addDemoDatasets() {
     try {

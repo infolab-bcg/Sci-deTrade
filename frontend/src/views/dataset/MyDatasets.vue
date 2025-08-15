@@ -177,6 +177,8 @@ import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import NavbarDefault from "../../components/NavbarDefault.vue";
+import Header from "../../examples/Header.vue";
+
 
 import vueMkHeader from "@/assets/img/vue-mk-header.jpg";
 import axios from "@/api/axios";
@@ -208,7 +210,7 @@ const fetchDatasets = async () => {
   error.value = '';
   
   try {
-    const response = await axios.get(`/getDatasetsByName/${userName.value}`);
+    const response = await axios.get(`/getDatasetsByUsername/${userName.value}`);
     if (response.data.success) {
       datasets.value = response.data.data || [];
     } else {
@@ -230,15 +232,15 @@ const goBack = () => {
 // 查看数据集详情
 const viewDataset = (dataset) => {
   // 这里可以跳转到数据集详情页面或显示详情模态框
-  console.log('查看数据集详情:', dataset);
-  // router.push(`/dataset/${blockchainName.value}/${dataset.name}`);
+  console.log('查看数据集详情:', dataset.blockchainName+"/"+dataset.name);
+  router.push(`/dataset/${dataset.blockchainName}/${dataset.name}`);
 };
 
 // 编辑数据集
 const editDataset = (dataset) => {
   // 跳转到数据集编辑页面
   console.log('编辑数据集:', dataset);
-  // router.push(`/dataset/edit/${blockchainName.value}/${dataset.name}`);
+  router.push(`/dataset/edit/${dataset.blockchainName}/${dataset.name}`);
 };
 
 // 创建新数据集

@@ -158,7 +158,7 @@ const goBack = () => {
 const viewDataset = (dataset) => {
   // 这里可以跳转到数据集详情页面或显示详情模态框
   console.log('查看数据集详情:', dataset);
-  // router.push(`/dataset/${blockchainName.value}/${dataset.name}`);
+  router.push(`/dataset/${blockchainName.value}/${dataset.name}`);
 };
 
 onMounted(() => {
